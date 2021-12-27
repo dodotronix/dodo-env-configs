@@ -1,0 +1,51 @@
+
+#include "/home/dodotronix/.term_scheme/iTerm2-Color-Schemes/xrdb/Solarized Dark Higher Contrast.xrdb"
+
+Xcursor.size: 32
+Xft.dpi: 220 
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+URxvt*letterSpace: -1
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+*.font: xft:MesloLGS-NF-Bold:pixelsize=28
+!rofi.font: InconsolataForPowerline Nerd Font 11
+
+!*.boldFont: xft:MesloLGS\ NF\ Bold:pixelsize=15:Bold
+!*.italicFont: xft:MesloLGS\ NF\ Italic:pixelsize=15:Italic
+!*.boldItalicFont: xft:MesloLGS\ NF\ Italic:pixelsize=15:Bold:Italic
+*.ttyModes: erase ^?
+
+! URxvt Appearance
+*.cursorColor: #afbfbf
+
+*.termName: screen-256color
+*.geometry: 240x84
+*.underlineColor: yellow
+*.scrollBar: false
+*.scrollBar_right: false
+
+*.color0:      Ansi_0_Color
+*.color1:      Ansi_1_Color
+*.color2:      Ansi_2_Color
+*.color3:      Ansi_3_Color
+*.color4:      Ansi_4_Color
+*.color5:      Ansi_5_Color
+*.color6:      Ansi_6_Color
+*.color7:      Ansi_7_Color
+*.color8:      Ansi_8_Color
+*.color9:      Ansi_9_Color
+*.color10:     Ansi_10_Color
+*.color11:     Ansi_11_Color
+*.color12:     Ansi_12_Color
+*.color13:     Ansi_13_Color
+*.color14:     Ansi_14_Color
+*.color15:     Ansi_15_Color
+*.colorBD:     Bold_Color
+*.colorIT:     Italic_Color
+*.colorUL:     Underline_Color
+*.foreground:  Foreground_Color
+*.background:  Background_Color
+*.cursorColor: Cursor_Color
