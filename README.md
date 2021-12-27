@@ -7,4 +7,4 @@
 * install development tools, kicad, octave, python, flatcam, ltspice
 * install autojump, yay, zathura, inkscape, deepin screenshot,
   spotify,alacritty, zsh, ranger
-* add xmodmap
+* install fonts
