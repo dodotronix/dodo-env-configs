@@ -9,10 +9,14 @@ all:
 	@printf '        make test - test recipe for makefile development\n'
 	@printf '        make run  - checks the sofware and install the complete env\n' 
 
+init:
+	git submodule update --init --recursive
+
 run:_check_software _install_packages
 
 test:_install_zsh
 	@printf 'dodo''s enviroment\n'
+	@printf $$HOME'\n'
 	@printf '$(SCRIPT_PATH)\n'
 
 _check_software:
@@ -21,18 +25,18 @@ _check_software:
 		false; }
 
 _install_packages:
-	@sudo pacman -Syu noconfirm \
-	pacman -S wget gajim emacs \
+	@sudo pacman -Syu --noconfirm; \
+	sudo pacman --noconfirm -S  wget gajim emacs \
 	archlinux-keyring bitwarden \
 	xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 	xf86-input-synaptics xf86-input-libinput \
 	evolution gnome-keyring \
 	cups network-manager-applet \
-	pavucontrol alacritty
+	pavucontrol alacritty ranger
 
 _install_yay:
 	cd /tmp; \
-	git clone https://aur.archlinux.org/yay.git \
+	git clone https://aur.archlinux.org/yay.git; \
 	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH)
 
 _install_yay_packages:
@@ -47,7 +51,17 @@ _install_i3_into_xfce:
 	@echo "install xfce4"
 
 _install_zsh:
-	@sudo pacman -S zsh
+	@sudo pacman --noconfirm -S zsh; \
+		yay --noconfirm -S oh-my-zsh-git --nocleanmenu --nodiffmenu; \
+		yay --noconfirm -S autojump-git --nocleanmenu --nodiffmenu; \
+		sudo ln -vnsf $(SCRIPT_PATH)/modules/Powerlevel10k /usr/share/zsh-theme-powerlevel10k; \
+		printf "make the zsh default shell\n"; \
+		chsh -s $$(which zsh); \
+		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
+		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] \
+		&& mkdir -p $$HOME/.oh-my-zsh/custom/plugins; \
+		ln -vnsf $(SCRIPT_PATH)/modules/zsh-dircolors-solarized $$HOME/.oh-my-zsh/custom/plugins; \
+		ln -vnsf $(SCRIPT_PATH)/modules/zsh-256color $$HOME/.oh-my-zsh/custom/plugins
 
 _install_fonts:
 	echo "install fonts"
