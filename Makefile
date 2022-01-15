@@ -5,7 +5,7 @@ XORG_PATH:=/etc/X11
 XORG_CONFD_DIR:=xorg.conf.d
 
 all:
-	@printf 'USAGE : make te6st | run\n'
+	@printf 'USAGE : make test | run\n'
 	@printf '        make test - test recipe for makefile development\n'
 	@printf '        make run  - checks the sofware and install the complete env\n' 
 
@@ -14,9 +14,8 @@ init:
 
 run:_check_software _install_packages
 
-test:_install_zsh
+test:_install_and_configure_xfce
 	@printf 'dodo''s enviroment\n'
-	@printf $$HOME'\n'
 	@printf '$(SCRIPT_PATH)\n'
 
 _check_software:
@@ -43,12 +42,15 @@ _install_yay_packages:
 	yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
 
 _install_and_configure_xfce:
-	@sudo pacman -S xfce4-panel xfce4-power-manager \
+	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
 		xfce4-session xfce4-settings thunar \
 		xfdesktop xfwm4 thunar-volman; \
-
-_install_i3_into_xfce:
-	@echo "install xfce4"
+		yay --noconfirm -S i3-gaps --nocleanmenu --nodiffmenu; \
+		yay --noconfirm -S xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu; \
+		[ -d $$HOME/.config/xfce4 ] \
+		&& rm -r $$HOME/.config/xfce4; \
+		ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
+		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config
 
 _install_zsh:
 	@sudo pacman --noconfirm -S zsh; \
