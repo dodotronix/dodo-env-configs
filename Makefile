@@ -14,7 +14,7 @@ init:
 
 run:_check_software _install_packages
 
-test:_install_and_configure_xfce
+test:_install_and_configure_i3_in_xfce
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
 
@@ -26,7 +26,7 @@ _check_software:
 _install_packages:
 	@sudo pacman -Syu --noconfirm; \
 	sudo pacman --noconfirm -S  wget gajim emacs \
-	archlinux-keyring bitwarden \
+	archlinux-keyring bitwarden python dropbox \
 	xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 	xf86-input-synaptics xf86-input-libinput \
 	evolution gnome-keyring \
@@ -41,13 +41,12 @@ _install_yay:
 _install_yay_packages:
 	yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
 
-_install_and_configure_xfce:
-	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager xfce4-whiskermenu-plugins \
-		xfce4-session xfce4-settings thunar nitrogen \
-		xfdesktop xfwm4 thunar-volman; \
-		yay --noconfirm -S i3-gaps --nocleanmenu --nodiffmenu; \
-		yay --noconfirm -S xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu; \
-		yay --noconfirm -S protonmail-bridge --nocleanmenu --nodiffmenu; \
+_install_and_configure_i3_in_xfce:
+	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
+		xfce4-whiskermenu-plugin dmenu xfce4-session xfce4-settings light-locker \
+		thunar nitrogen yad xfdesktop xfwm4 thunar-volman xfce4-sensors-plugin; \
+		yay --noconfirm -S i3-gaps xfce4-i3-workspaces-plugin-git i3ipc-python-git \
+		protonmail-bridge --nocleanmenu --nodiffmenu; \
 		[ -d $$HOME/.config/xfce4 ] \
 		&& rm -r $$HOME/.config/xfce4; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
