@@ -42,15 +42,17 @@ _install_yay_packages:
 	yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
 
 _install_and_configure_xfce:
-	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
-		xfce4-session xfce4-settings thunar \
+	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager xfce4-whiskermenu-plugins \
+		xfce4-session xfce4-settings thunar nitrogen \
 		xfdesktop xfwm4 thunar-volman; \
 		yay --noconfirm -S i3-gaps --nocleanmenu --nodiffmenu; \
 		yay --noconfirm -S xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu; \
+		yay --noconfirm -S protonmail-bridge --nocleanmenu --nodiffmenu; \
 		[ -d $$HOME/.config/xfce4 ] \
 		&& rm -r $$HOME/.config/xfce4; \
 		ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
-		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config
+		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
+		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
 
 _install_zsh:
 	@sudo pacman --noconfirm -S zsh; \
