@@ -41,6 +41,10 @@
         <value type="string" value="gajim"/>
         <value type="string" value="networkmanager applet"/>
       </property>
+      <property name="known-items" type="array">
+        <value type="string" value="ProtonMail Bridge"/>
+        <value type="string" value="Mattermost1"/>
+      </property>
     </property>
     <property name="plugin-9" type="string" value="power-manager-plugin"/>
     <property name="plugin-11" type="string" value="separator">
