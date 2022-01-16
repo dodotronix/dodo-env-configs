@@ -14,7 +14,7 @@ init:
 
 run:_check_software _install_packages
 
-test:_install_and_configure_i3_in_xfce
+test:_install_neovim _install_doom_emacs
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
 
@@ -38,8 +38,8 @@ _install_yay:
 	git clone https://aur.archlinux.org/yay.git; \
 	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH)
 
-_install_yay_packages:
-	yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
+install_yay_packages:
+	@yay --noconfirm -S flatcam-git spotify --nocleanmenu --nodiffmenu
 
 _install_and_configure_i3_in_xfce:
 	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
@@ -58,8 +58,7 @@ _install_and_configure_i3_in_xfce:
 
 _install_zsh:
 	@sudo pacman --noconfirm -S zsh; \
-		yay --noconfirm -S oh-my-zsh-git --nocleanmenu --nodiffmenu; \
-		yay --noconfirm -S autojump-git --nocleanmenu --nodiffmenu; \
+		yay --noconfirm -S oh-my-zsh-git autojump-git --nocleanmenu --nodiffmenu; \
 		sudo ln -vnsf $(SCRIPT_PATH)/modules/Powerlevel10k /usr/share/zsh-theme-powerlevel10k; \
 		printf "make the zsh default shell\n"; \
 		chsh -s $$(which zsh); \
@@ -67,16 +66,25 @@ _install_zsh:
 		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] \
 		&& mkdir -p $$HOME/.oh-my-zsh/custom/plugins; \
 		ln -vnsf $(SCRIPT_PATH)/modules/zsh-dircolors-solarized $$HOME/.oh-my-zsh/custom/plugins; \
-		ln -vnsf $(SCRIPT_PATH)/modules/zsh-256color $$HOME/.oh-my-zsh/custom/plugins
+		ln -vnsf $(SCRIPT_PATH)/modules/zsh-256color $$HOME/.oh-my-zsh/custom/plugins; \
+		[ ! -f $$HOME/.personal_cfg.zsh ] && touch $$HOME/.personal_cfg.zsh 
 
 _install_fonts:
 	echo "install fonts"
 
-_install_vim:
-	echo "install vim"
+_install_neovim:
+	sudo pacman --noconfirm -S neovim; \
+		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] && mkdir $(SCRIPT_PATH)/nvim/autoload; \
+		git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
+		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config;
 
 _install_doom_emacs:
-	echo "install doom emacs"
+	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
+		~/.emacs.d/bin/doom install
+
+install_packages_for_work:
+	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
+		sudo pacman --noconfirm -S tigervnc;
 
 _create_symlinks:
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
