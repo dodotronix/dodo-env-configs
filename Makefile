@@ -50,6 +50,9 @@ _install_and_configure_xfce:
 		yay --noconfirm -S protonmail-bridge --nocleanmenu --nodiffmenu; \
 		[ -d $$HOME/.config/xfce4 ] \
 		&& rm -r $$HOME/.config/xfce4; \
+		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
+		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -n -t string -s xfsettingsd; \
+		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false; \
 		ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
