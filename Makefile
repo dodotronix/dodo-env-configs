@@ -14,7 +14,8 @@ init:
 
 run:_check_software _install_packages
 
-test:_install_neovim _install_doom_emacs
+# test:_install_neovim _install_doom_emacs
+test:_install_packages 
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
 
@@ -25,13 +26,18 @@ _check_software:
 
 _install_packages:
 	@sudo pacman -Syu --noconfirm; \
-	sudo pacman --noconfirm -S  wget gajim emacs \
-	archlinux-keyring bitwarden python dropbox \
-	xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
-	xf86-input-synaptics xf86-input-libinput \
-	evolution gnome-keyring \
-	cups network-manager-applet \
-	pavucontrol alacritty ranger
+		sudo pacman --noconfirm -S  wget gajim emacs \
+		archlinux-keyring bitwarden python alsa-utils \
+		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
+		xf86-input-synaptics xf86-input-libinput \
+		evolution gnome-keyring bluez bluez-utils \
+		pulseaudio pulseaudio-bluetooth \
+		cups network-manager-applet pulseaudio-alsa \
+		pavucontrol alacritty ranger; \
+		sudo systemctl enable bluetooth.service; \
+		pulseaudio -k; \
+		pulseaudio start
+#TODO create blueman rule in /etc/polkit-1/rules.d/
 
 _install_yay:
 	cd /tmp; \
@@ -39,7 +45,19 @@ _install_yay:
 	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH)
 
 install_yay_packages:
-	@yay --noconfirm -S flatcam-git spotify --nocleanmenu --nodiffmenu
+	@yay --noconfirm -S spotify --nocleanmenu --nodiffmenu
+
+install_kicad:
+	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu; \
+		cd Projects; git clone git@github.com:dodotronix/dodo-env-configs.git; cd
+
+install_flatcam:
+	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
+
+install_bcnc:
+	@sudo pacman --noconfirm -S python-wcwidth python-attrs python-more-itertools \
+		python-pluggy python-importlib-metadata python-setuptools-scm python-attrs; \
+		echo "Download BCNC-git PKGBUILD from AUR and change the python2 to python and python2.7 to python3.10"
 
 _install_and_configure_i3_in_xfce:
 	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
@@ -74,6 +92,7 @@ _install_fonts:
 
 _install_neovim:
 	sudo pacman --noconfirm -S neovim; \
+		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
 		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] && mkdir $(SCRIPT_PATH)/nvim/autoload; \
 		git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
 		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config;
