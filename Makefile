@@ -33,7 +33,7 @@ _install_packages:
 		evolution gnome-keyring bluez bluez-utils \
 		pulseaudio pulseaudio-bluetooth \
 		cups network-manager-applet pulseaudio-alsa \
-		pavucontrol alacritty ranger; \
+		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
 		pulseaudio -k; \
 		pulseaudio start
@@ -52,7 +52,10 @@ install_kicad:
 		cd Projects; git clone git@github.com:dodotronix/dodo-env-configs.git; cd
 
 install_flatcam:
-	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu
+	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
+		echo "replace import collections with import collections.abc as collections in
+	all files which will raise an exception"; \
+		sudo pip uninistall vispy && sudo pip install vispy==0.7
 
 install_bcnc:
 	@sudo pacman --noconfirm -S python-wcwidth python-attrs python-more-itertools \
