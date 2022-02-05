@@ -31,13 +31,13 @@ _install_packages:
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput \
 		evolution gnome-keyring bluez bluez-utils \
-		pulseaudio pulseaudio-bluetooth \
+		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
+		mtpfs gvfs-gphoto2 gvfs-mtp \
 		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
 		pulseaudio -k; \
 		pulseaudio start
-#TODO create blueman rule in /etc/polkit-1/rules.d/
 
 _install_yay:
 	cd /tmp; \
@@ -102,11 +102,21 @@ _install_neovim:
 
 _install_doom_emacs:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
-		~/.emacs.d/bin/doom install
+		~/.emacs.d/bin/doom install \
+	echo "TODO add instaling of pabbrev";
 
 install_packages_for_work:
 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
-		sudo pacman --noconfirm -S tigervnc;
+		sudo pacman --noconfirm -S tigervnc remmina libvncserver
+
+install_task_warrior:
+	@yay --noconfirm -S task-git taskd-git timew-git --nocleanmenu --nodiffmenu; \
+		cp /usr/share/doc/timew/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
+		chmod +x on-modify.timewarrior; \
+		echo "for server condiguration taskd follow the instructions on archwiki" \
+		echo "Do not forget that the TASKDDATA variable has to be in root directory" \
+		echo "than generate certificates for client and copy them in to ~/.task" \
+		echo "dont forget to replace the username and group with your chosen names"
 
 _create_symlinks:
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
