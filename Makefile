@@ -33,7 +33,8 @@ _install_packages:
 		evolution gnome-keyring bluez bluez-utils \
 		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
-		mtpfs gvfs-gphoto2 gvfs-mtp \
+		mtpfs gvfs-gphoto2 gvfs-mtp man-db \
+		firewalld ipset ebtables \
 		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
 		pulseaudio -k; \
