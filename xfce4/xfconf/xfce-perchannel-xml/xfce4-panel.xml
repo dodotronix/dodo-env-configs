@@ -38,6 +38,9 @@
     <property name="plugin-6" type="string" value="systray">
       <property name="square-icons" type="bool" value="true"/>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="firewall-applet"/>
+        <value type="string" value="thunar"/>
+        <value type="string" value="proton mail bridge"/>
         <value type="string" value="reminders"/>
         <value type="string" value="evolution-alarm-notify"/>
         <value type="string" value="blueberry-tray.py"/>

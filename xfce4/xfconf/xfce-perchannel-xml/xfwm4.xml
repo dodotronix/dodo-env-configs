@@ -73,7 +73,7 @@
     <property name="unredirect_overlays" type="bool" value="true"/>
     <property name="urgent_blink" type="bool" value="false"/>
     <property name="use_compositing" type="bool" value="true"/>
-    <property name="workspace_count" type="int" value="5"/>
+    <property name="workspace_count" type="int" value="4"/>
     <property name="wrap_cycle" type="bool" value="true"/>
     <property name="wrap_layout" type="bool" value="true"/>
     <property name="wrap_resistance" type="int" value="10"/>
@@ -86,10 +86,10 @@
       <value type="string" value="1:o|"/>
       <value type="string" value="3:u|"/>
       <value type="string" value="4:i|"/>
-      <value type="string" value="5:d|cern"/>
-      <value type="string" value="6:h|"/>
-      <value type="string" value="7:t|draw"/>
-      <value type="string" value="7:t|draw"/>
+      <value type="string" value="5:d|dev"/>
+      <value type="string" value="5:d|draw"/>
+      <value type="string" value="6:h|doulos"/>
+      <value type="string" value="7:t|remote"/>
       <value type="string" value="8:n|kicad"/>
     </property>
   </property>
