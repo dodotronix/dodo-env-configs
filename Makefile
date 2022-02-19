@@ -17,7 +17,8 @@ run:_check_software _install_packages
 # test:_install_neovim _install_doom_emacs
 #test:_install_packages _create_symlinks _install_zsh 
 #test: _install_and_configure_i3_in_xfce _create_xfce_i3_symlinks 
-test:  _install_neovim
+#test:  _install_neovim
+test: _install_fonts 
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
 
@@ -94,7 +95,12 @@ _install_zsh:
 		[ ! -f $$HOME/.personal_cfg.zsh ] && touch $$HOME/.personal_cfg.zsh 
 
 _install_fonts:
-	echo "install fonts"
+	@mkdir $(SCRIPT_PATH)/fonts; \
+		sudo ln -vnsf $(SCRIPT_PATH)/fonts /usr/local/share; \
+		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf; \
+		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf; \
+		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf; \
+		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
 _install_neovim:
 	sudo pacman --noconfirm -S neovim; \
