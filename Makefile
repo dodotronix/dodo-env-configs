@@ -15,7 +15,9 @@ init:
 run:_check_software _install_packages
 
 # test:_install_neovim _install_doom_emacs
-test:_install_packages 
+#test:_install_packages _create_symlinks _install_zsh 
+#test: _install_and_configure_i3_in_xfce _create_xfce_i3_symlinks 
+test:  _install_neovim
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
 
@@ -34,11 +36,10 @@ _install_packages:
 		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db \
-		firewalld ipset ebtables \
+		firewalld ipset \
 		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
-		pulseaudio -k; \
-		pulseaudio start
+		pulseaudio -k; pulseaudio --start
 
 _install_yay:
 	cd /tmp; \
@@ -69,12 +70,13 @@ _install_and_configure_i3_in_xfce:
 		thunar nitrogen yad xfdesktop xfwm4 thunar-volman xfce4-sensors-plugin; \
 		yay --noconfirm -S i3-gaps xfce4-i3-workspaces-plugin-git i3ipc-python-git \
 		protonmail-bridge --nocleanmenu --nodiffmenu; \
-		[ -d $$HOME/.config/xfce4 ] \
-		&& rm -r $$HOME/.config/xfce4; \
+		[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -n -t string -s xfsettingsd; \
-		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false; \
-		ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
+		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false
+
+_create_xfce_i3_symlinks:
+	ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
 
@@ -97,9 +99,11 @@ _install_fonts:
 _install_neovim:
 	sudo pacman --noconfirm -S neovim; \
 		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
-		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] && mkdir $(SCRIPT_PATH)/nvim/autoload; \
-		git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
-		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config;
+		[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
+		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] \
+		&& mkdir $(SCRIPT_PATH)/nvim/autoload \
+		&& git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
+		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
 
 _install_doom_emacs:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
