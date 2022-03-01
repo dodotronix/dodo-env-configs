@@ -233,7 +233,7 @@
     bindsym $mod+Tab workspace $ws_todo
 
     #start dmenu
-    bindsym $mod+e exec --no-startup-id i3-dmenu-desktop
+    bindsym $mod+e exec --no-startup-id j4-dmenu-desktop
 ## end launch or control applications
 
 ## manipulate workspaces

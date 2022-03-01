@@ -108,9 +108,11 @@ _install_fonts:
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
 _install_neovim:
-	sudo pacman --noconfirm -S neovim; \
-		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
-		[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
+	@sudo pacman --noconfirm -S neovim; \
+		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu;
+
+configure_neovim:
+	@[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
 		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] \
 		&& mkdir $(SCRIPT_PATH)/nvim/autoload \
 		&& git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
