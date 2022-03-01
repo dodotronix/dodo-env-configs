@@ -16,11 +16,14 @@ run:_check_software _install_packages
 
 # test:_install_neovim _install_doom_emacs
 #test:_install_packages _create_symlinks _install_zsh 
-#test: _install_and_configure_i3_in_xfce _create_xfce_i3_symlinks 
+#test: _install_xfce _create_xfce_i3_symlinks 
 #test:  _install_neovim
 test: _install_fonts 
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
+
+load_i3xfce4: _load_xfce_settings _create_xfce_i3_symlinks
+	@printf 'Xfce4 settings loaded'
 
 _check_software:
 	@type sudo >/dev/null 2>@1 || { \
@@ -65,19 +68,21 @@ install_bcnc:
 		python-pluggy python-importlib-metadata python-setuptools-scm python-attrs; \
 		echo "Download BCNC-git PKGBUILD from AUR and change the python2 to python and python2.7 to python3.10"
 
-_install_and_configure_i3_in_xfce:
+_install_xfce:
 	@sudo pacman --noconfirm -S xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session xfce4-settings light-locker \
 		thunar nitrogen yad xfdesktop xfwm4 thunar-volman xfce4-sensors-plugin; \
 		yay --noconfirm -S i3-gaps xfce4-i3-workspaces-plugin-git i3ipc-python-git \
 		protonmail-bridge --nocleanmenu --nodiffmenu; \
-		[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
+
+_load_xfce_settings:
+		@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -n -t string -s xfsettingsd; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false
 
 _create_xfce_i3_symlinks:
-	ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
+	@ln -vnsf $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
 
