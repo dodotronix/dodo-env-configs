@@ -12,7 +12,11 @@ all:
 init:
 	git submodule update --init --recursive
 
-run:_check_software _install_packages
+run:_check_software _install_packages _create_symlinks \
+	_install_yay install_yay_packages
+install_enviroment: _install_xfce load_i3xfce4 
+load_i3xfce4: _load_xfce_settings _create_xfce_i3_symlinks
+install_tools: install_neovim install_zsh install_doom_emacs  
 
 # test:_install_neovim _install_doom_emacs
 #test:_install_packages _create_symlinks _install_zsh 
@@ -21,9 +25,6 @@ run:_check_software _install_packages
 test: _install_fonts 
 	@printf 'dodo''s enviroment\n'
 	@printf '$(SCRIPT_PATH)\n'
-
-load_i3xfce4: _load_xfce_settings _create_xfce_i3_symlinks
-	@printf 'Xfce4 settings loaded'
 
 _check_software:
 	@type sudo >/dev/null 2>@1 || { \
@@ -40,7 +41,7 @@ _install_packages:
 		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db \
-		firewalld ipset \
+		firewalld ipset lightdm lightdm-gtk-greeter firefox \
 		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
 		pulseaudio -k; pulseaudio --start
@@ -86,12 +87,12 @@ _create_xfce_i3_symlinks:
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
 
-_install_zsh:
+install_zsh: _install_fonts
 	@sudo pacman --noconfirm -S zsh; \
 		yay --noconfirm -S oh-my-zsh-git autojump-git --nocleanmenu --nodiffmenu; \
 		sudo ln -vnsf $(SCRIPT_PATH)/modules/Powerlevel10k /usr/share/zsh-theme-powerlevel10k; \
 		printf "make the zsh default shell\n"; \
-		chsh -s $$(which zsh); \
+		sudo chsh -s $$(which zsh); \
 		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
 		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] \
 		&& mkdir -p $$HOME/.oh-my-zsh/custom/plugins; \
@@ -107,7 +108,7 @@ _install_fonts:
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf; \
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
-_install_neovim:
+install_neovim:
 	sudo pacman --noconfirm -S neovim; \
 		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
 		[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
@@ -116,13 +117,14 @@ _install_neovim:
 		&& git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
 		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
 
-_install_doom_emacs:
+install_doom_emacs:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
 		~/.emacs.d/bin/doom install \
 	echo "TODO add instaling of pabbrev";
 
 install_packages_for_work:
 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
+		yay --noconfirm -S zoom --nocleanmenu --nodiffmenu; \
 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
 
 install_task_warrior:
@@ -134,7 +136,7 @@ install_task_warrior:
 		echo "than generate certificates for client and copy them in to ~/.task" \
 		echo "dont forget to replace the username and group with your chosen names"
 
-_create_symlinks:
+_create_symlinks: 
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
 		&& sudo ln -vnsf $(SCRIPT_PATH)/$(XORG_CONFD_DIR)/* \
 		$(XORG_PATH)/$(XORG_CONFD_DIR);
