@@ -230,7 +230,7 @@
     bindsym $mod+Return exec alacritty
     
     # control vim todo list
-    bindsym $mod+Tab workspace $ws_todo
+    bindsym $mod+Tab workspace $ws_todo; exec $HOME/.config/i3/todo.sh
 
     #start dmenu
     bindsym $mod+e exec --no-startup-id i3-dmenu-desktop
