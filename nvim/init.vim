@@ -11,21 +11,14 @@ set path+=**
 
 " Plugin install and update {{{ 
   call plug#begin('~/.config/nvim/plugged')
-    Plug 'ayu-theme/ayu-vim' 
     Plug 'vimwiki/vimwiki'
     Plug 'morhetz/gruvbox'
     Plug 'https://github.com/vim-airline/vim-airline.git'
-    Plug 'https://github.com/neomake/neomake.git'
     Plug 'https://github.com/jiangmiao/auto-pairs.git'
     Plug 'https://github.com/scrooloose/nerdcommenter.git'
     Plug 'https://github.com/godlygeek/tabular.git'
-    Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-    Plug 'majutsushi/tagbar'
-    Plug 'jacoborus/tender.vim'
     Plug 'junegunn/fzf'
     Plug 'kevinhwang91/rnvimr'
-    Plug 'https://github.com/vifm/vifm.vim.git'
-    Plug 'https://github.com/freitass/todo.txt-vim.git'
   call plug#end()
 "}}}
 
@@ -53,6 +46,7 @@ endif
     set ruler " show the cursor position all the time
     set showcmd " display incomplete commands
     set number " dislpay line numbers
+    set relativenumber " relative line numbering
 
     set mouse=r
     set colorcolumn=81
@@ -189,33 +183,6 @@ endif
     "set dictionary="/usr/dict/words"
 ""}}} 
 
-let g:tagbar_type_vhdl = {
-    \ 'ctagstype': 'vhdl',
-    \ 'kinds' : [
-        \'d:prototypes',
-        \'b:package bodies',
-        \'e:entities',
-        \'a:architectures',
-        \'t:types',
-        \'p:processes',
-        \'f:functions',
-        \'r:procedures',
-        \'c:constants',
-        \'n:commponets',
-        \'s:signals',
-        \'T:subtypes',
-        \'r:records',
-        \'C:components',
-        \'P:packages',
-        \'l:locals'
-    \]
-\}
-
-" Google Calendar
-"let g:calendar_google_calendar = 1
-"let g:calendar_google_task = 1
-"source $HOME/.cache/calendar.vim/credentials.vim
-
 "vimwiki
 let g:vimwiki_list = [{'path': '$HOME/Dropbox/TIN'}]
 let g:vimwiki_folding='list'
@@ -224,7 +191,6 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python2'
-
 
 "vhdl entity definition
 function Vhdl_entity()

@@ -10,11 +10,13 @@ all:
 	@printf '        make run  - checks the sofware and install the complete env\n' 
 
 init:
-	git submodule update --init --recursive
+	@git submodule update --init --recursive
+	@cd $$HOME/projects && [ -d "vimwiki_record" ] || \
+		git clone git@github.com:dodotronix/vimwiki_record.git;
 
 run:_check_software _install_packages _create_symlinks \
 	_install_yay install_yay_packages
-install_enviroment: _install_xfce load_i3xfce4 
+install_enviroment: _install_xfce load_i3xfce4  
 load_i3xfce4: _load_xfce_settings _create_xfce_i3_symlinks
 install_tools: install_neovim install_zsh install_doom_emacs  
 
@@ -108,7 +110,7 @@ _install_fonts:
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf; \
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
-_install_neovim:
+install_neovim:
 	sudo pacman --noconfirm -S neovim xclip; \
 		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
 		[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
