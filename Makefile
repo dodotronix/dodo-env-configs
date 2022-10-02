@@ -42,7 +42,7 @@ _install_packages:
 		evolution gnome-keyring bluez bluez-utils \
 		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
-		mtpfs gvfs-gphoto2 gvfs-mtp man-db \
+		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
 		firewalld ipset lightdm lightdm-gtk-greeter firefox \
 		pavucontrol alacritty ranger usbutils; \
 		sudo systemctl enable bluetooth.service; \
@@ -53,8 +53,9 @@ _install_yay:
 	git clone https://aur.archlinux.org/yay.git; \
 	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH)
 
+# TODO check the imapfilter features
 install_yay_packages:
-	@yay --noconfirm -S spotify --nocleanmenu --nodiffmenu
+	@yay --noconfirm -S discord spotify imapfilter --nocleanmenu --nodiffmenu
 
 install_kicad:
 	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu; \
@@ -76,7 +77,7 @@ _install_xfce:
 		xfce4-whiskermenu-plugin dmenu xfce4-session xfce4-settings light-locker \
 		thunar nitrogen yad xfdesktop xfwm4 thunar-volman xfce4-sensors-plugin; \
 		yay --noconfirm -S i3-gaps xfce4-i3-workspaces-plugin-git i3ipc-python-git \
-		protonmail-bridge --nocleanmenu --nodiffmenu; \
+		protonmail-bridge xfce4-genmon-plugin --nocleanmenu --nodiffmenu; \
 
 _load_xfce_settings:
 		@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
@@ -112,12 +113,10 @@ _install_fonts:
 
 install_neovim:
 	sudo pacman --noconfirm -S neovim xclip; \
-		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu; \
-		[ -d $$HOME/.config/nvim ] && rm -r $$HOME/.config/nvim; \
-		[ ! -d $(SCRIPT_PATH)/nvim/autoload ] \
-		&& mkdir $(SCRIPT_PATH)/nvim/autoload \
-		&& git clone --depth 1 https://github.com/junegunn/vim-plug.git $(SCRIPT_PATH)/nvim/autoload; \
-		ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
+		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu \
+		&& git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+		~/.local/share/nvim/site/pack/packer/start/packer.nvim \
+		&& ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
 
 install_doom_emacs:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
@@ -137,6 +136,11 @@ install_task_warrior:
 		echo "Do not forget that the TASKDDATA variable has to be in root directory" \
 		echo "than generate certificates for client and copy them in to ~/.task" \
 		echo "dont forget to replace the username and group with your chosen names"
+
+install_neomutt:
+	@yay --noconfirm -S abook mutt-wizard-git neomutt-git imapfilter --nocleanmenu --nodiffmenu \
+		&& ln -vnsf $(SCRIPT_PATH)/mutt/muttrc $$HOME/.config/mutt;
+	
 
 _create_symlinks: 
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
