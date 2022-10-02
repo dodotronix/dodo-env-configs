@@ -1,3 +1,5 @@
 font:
   normal:
     family: "MesloLGS NF"
+shell:
+  program: /bin/task
