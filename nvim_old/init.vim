@@ -413,7 +413,7 @@ let g:rnvimr_enable_ex = 1
 let g:rnvimr_enable_picker = 1
 
 " Disable a border for floating window
-let g:rnvimr_draw_border = 0
+let g:rnvimr_draw_border = 1
 
 " Hide the files included in gitignore
 let g:rnvimr_hide_gitignore = 0
@@ -428,7 +428,7 @@ let g:rnvimr_enable_bw = 1
 let g:rnvimr_shadow_winblend = 70
 
 " Draw border with both
-let g:rnvimr_ranger_cmd = 'ranger --cmd="set draw_borders both"'
+let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
 
 " Link CursorLine into RnvimrNormal highlight in the Floating window
 highlight link RnvimrNormal CursorLine
