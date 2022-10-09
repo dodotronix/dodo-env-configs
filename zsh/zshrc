@@ -125,6 +125,6 @@ prompt_context(){}
 # print actual path as title 
 case $TERM in
     xterm*|termite|alacritty|foot)
-	precmd () {print -Pn "\e]0;Alacritty [${PWD/#$HOME/~}]\a"}
+	precmd () {print -Pn "\e]0;[${PWD}]\a"}
         ;;
 esac
