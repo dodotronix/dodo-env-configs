@@ -111,7 +111,7 @@ _install_fonts:
 
 install_neovim:
 	sudo pacman --noconfirm -S neovim xclip; \
-		yay --noconfirm -S ranger python-pynvim ueberzug --nocleanmenu --nodiffmenu \
+		yay --noconfirm -S pyright svls python-pynvim ueberzug --nocleanmenu --nodiffmenu \
 		&& git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim \
 		&& ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
