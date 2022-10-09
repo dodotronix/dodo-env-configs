@@ -13,6 +13,7 @@ elif [ `$TASK +READY +DUETODAY count` -gt "0" ]; then
 	echo $DUETODAY
 elif [ `$TASK +READY +TOMORROW count` -gt "0" ]; then
 	echo $DUETOMORROW
-elif [ `$TASK +READY urgency > 10 count` -gt "0" ]; then
+elif [ `$TASK +READY urgency > 10 count` ]; then
 	echo $URGENT
+else echo " "
 fi
