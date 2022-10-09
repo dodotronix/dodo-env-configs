@@ -93,15 +93,13 @@ _create_xfce_i3_symlinks:
 install_zsh: _install_fonts
 	@sudo pacman --noconfirm -S zsh; \
 		yay --noconfirm -S oh-my-zsh-git autojump-git --nocleanmenu --nodiffmenu; \
-		sudo ln -vnsf $(SCRIPT_PATH)/modules/Powerlevel10k /usr/share/zsh-theme-powerlevel10k; \
 		printf "make the zsh default shell\n"; \
 		sudo chsh -s $$(which zsh); \
 		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
-		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] \
-		&& mkdir -p $$HOME/.oh-my-zsh/custom/plugins; \
-		ln -vnsf $(SCRIPT_PATH)/modules/zsh-dircolors-solarized $$HOME/.oh-my-zsh/custom/plugins; \
-		ln -vnsf $(SCRIPT_PATH)/modules/zsh-256color $$HOME/.oh-my-zsh/custom/plugins; \
-		[ ! -f $$HOME/.personal_cfg.zsh ] && touch $$HOME/.personal_cfg.zsh 
+		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] && { mkdir -p  $$HOME/.oh-my-zsh/custom/plugins; } || { rm -rf $$HOME/.oh-my-zsh/custom/plugins/*; }; \
+		git clone https://github.com/joel-porquet/zsh-dircolors-solarized.git $$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized; \
+		git clone https://github.com/chrissicool/zsh-256color.git $$HOME/.oh-my-zsh/custom/plugins/zsh-256color; \
+		[ ! -f $$HOME/.personal_cfg.zsh ] && { touch $$HOME/.personal_cfg.zsh; } || { true; } 
 
 _install_fonts:
 	@mkdir $(SCRIPT_PATH)/fonts; \
@@ -129,13 +127,9 @@ install_packages_for_work:
 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
 
 install_task_warrior:
-	@yay --noconfirm -S task-git taskd-git timew-git --nocleanmenu --nodiffmenu; \
+	@yay --noconfirm -S task-git taskd-git timew-git tasksh --nocleanmenu --nodiffmenu; \
 		cp /usr/share/doc/timew/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
-		chmod +x on-modify.timewarrior; \
-		echo "for server condiguration taskd follow the instructions on archwiki" \
-		echo "Do not forget that the TASKDDATA variable has to be in root directory" \
-		echo "than generate certificates for client and copy them in to ~/.task" \
-		echo "dont forget to replace the username and group with your chosen names"
+		chmod +x on-modify.timewarrior; echo "Download configuration script from taskwing web"
 
 install_neomutt:
 	@yay --noconfirm -S abook mutt-wizard-git neomutt-git imapfilter --nocleanmenu --nodiffmenu \
