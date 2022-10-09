@@ -1,9 +1,0 @@
-[submodule "modules/Powerlevel10k"]
-	path = modules/Powerlevel10k
-	url = https://github.com/romkatv/Powerlevel10k.git
-[submodule "modules/zsh-dircolors-solarized"]
-	path = modules/zsh-dircolors-solarized
-	url = https://github.com/joel-porquet/zsh-dircolors-solarized
-[submodule "modules/zsh-256color"]
-	path = modules/zsh-256color
-	url = https://github.com/chrissicool/zsh-256color.git
