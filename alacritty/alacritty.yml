@@ -3,3 +3,6 @@ font:
     family: "MesloLGS NF"
 shell:
   program: /bin/task
+window:
+  dynamic_title: true
+

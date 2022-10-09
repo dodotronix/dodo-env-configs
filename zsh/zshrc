@@ -121,3 +121,10 @@ bindkey -M vicmd '^R' history-incremental-search-backward
 
 # don't show user name@domain
 prompt_context(){}
+
+# print actual path as title 
+case $TERM in
+    xterm*|termite|alacritty|foot)
+	precmd () {print -Pn "\e]0;Alacritty [${PWD/#$HOME/~}]\a"}
+        ;;
+esac
