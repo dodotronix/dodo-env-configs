@@ -15,6 +15,8 @@
         <value type="int" value="12"/>
         <value type="int" value="3"/>
         <value type="int" value="7"/>
+        <value type="int" value="14"/>
+        <value type="int" value="10"/>
         <value type="int" value="11"/>
         <value type="int" value="8"/>
         <value type="int" value="5"/>
@@ -38,6 +40,16 @@
     <property name="plugin-6" type="string" value="systray">
       <property name="square-icons" type="bool" value="true"/>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (65%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (54%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (63%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (55%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (61%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (60%)"/>
+        <value type="string" value="wi-fi network connection “sfr_79b0” active: sfr_79b0 (62%)"/>
+        <value type="string" value="javaembeddedframe"/>
+        <value type="string" value="wi-fi network connection “router-3138” active: router-3138 (63%)"/>
+        <value type="string" value="wi-fi network connection “dsl.wia.cz” active: dsl.wia.cz (63%)"/>
         <value type="string" value="firewall-applet"/>
         <value type="string" value="thunar"/>
         <value type="string" value="proton mail bridge"/>
@@ -52,6 +64,11 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="discord1"/>
+        <value type="string" value="indicator-solaar"/>
+        <value type="string" value="Proton Mail Bridge"/>
+        <value type="string" value="Microsoft Teams - Preview1"/>
+        <value type="string" value="Gajim"/>
         <value type="string" value="remmina-icon"/>
         <value type="string" value="FlatCAM.py"/>
         <value type="string" value="zoom"/>
@@ -59,6 +76,7 @@
         <value type="string" value="ProtonMail Bridge"/>
         <value type="string" value="Mattermost1"/>
       </property>
+      <property name="icon-size" type="int" value="0"/>
     </property>
     <property name="plugin-9" type="string" value="power-manager-plugin"/>
     <property name="plugin-11" type="string" value="separator">
@@ -75,5 +93,7 @@
     <property name="plugin-8" type="string" value="i3-workspaces"/>
     <property name="plugin-15" type="string" value="xfce4-sensors-plugin"/>
     <property name="plugin-16" type="string" value="xfce4-sensors-plugin"/>
+    <property name="plugin-10" type="string" value="genmon"/>
+    <property name="plugin-14" type="string" value="separator"/>
   </property>
 </channel>
