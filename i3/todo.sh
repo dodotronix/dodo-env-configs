@@ -7,5 +7,7 @@ OUTPUT=$(i3-msg -t get_tree | jq '.nodes | .[] | .nodes | .[]
                                 select(.name == "todo-list") | .name')
 
 if [ -z "$OUTPUT" ]; then
-  alacritty --title "todo-list" -e nvim $HOME/projects/vimwiki_record/index.wiki &
+    if [ -d $HOME/projects/neorg_record ]; then
+        alacritty --title "todo-list" -e nvim -c "Neorg workspace personal" &
+    fi
 fi

@@ -5,7 +5,7 @@ import subprocess
 from i3ipc import Connection, Event
 
 letters = ['d', 'h', 't', 'n', 's']
-static = ['', '', '', '', '']
+static = ['🌐', '📡', '🎧', '💬', '📝']
 ws_cnt = [0]
 
 # TODO add workspace behind focused one or behind the static ws

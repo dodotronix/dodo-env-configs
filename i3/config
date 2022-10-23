@@ -9,7 +9,6 @@
 #   * download nerd-fonts-complete 
 # ---------------------------------------------------------------------------- #
 
-
 #exec --no-startup-id nitrogen --restore
 #exec --no-startup-id synergy
 #exec --no-startup-id nm-applet
@@ -32,20 +31,22 @@
 
 # VARIABLES
 #static workspaces variables
-    set $ws_browser "0:a|"
-    set $ws_mail "1:o|"
-    set $ws_music "2:e|"
-    set $ws_chat "3:u|"
-    set $ws_todo "4:i|"
+    set $ws_browser "0:a|🌐"
+    set $ws_mail "1:o|📡"
+    set $ws_music "2:e|🎧"
+    set $ws_chat "3:u|💬"
+    set $ws_todo "4:i|📝"
 # end static workspaces variables
 
 # GAPS
     smart_gaps on
-    gaps inner 5
-    gaps outer 5
+    gaps inner 2
+    gaps outer 2
 
 # BORDERS
-    default_border pixel 6
+    # default_floating_border pixel 4
+    # default_border pixel 4
+    for_window [class=.*] border pixel 4
     title_align center
 
 # MODES
@@ -76,7 +77,7 @@
         bindsym ctrl+s move container to workspace number 9
 
         #return back to normal
-        bindsym Escape mode "default"
+        bindsym escape mode "default"
         bindsym space mode "default"
         bindsym $mod+u mode "default"
     }
@@ -97,11 +98,11 @@
         bindsym s [workspace="9"] move workspace to output right;
         
         bindsym space mode "default"
-        bindsym $mod+h mode "default"
+        bindsym $mod+Shift+T mode "default"
     }
-    bindsym $mod+h mode "moveR"
+    bindsym $mod+Shift+T mode "moveR"
 ## end move workspace right
-#
+
 ## move workspace left
     mode "moveL"{
         bindsym a [workspace="0"] move workspace to output left;
@@ -116,17 +117,17 @@
         bindsym s [workspace="9"] move workspace to output left;
 
         bindsym space mode "default"
-        bindsym $mod+i mode "default"
+        bindsym $mod+Shift+D mode "default"
     }
-    bindsym $mod+i mode "moveL"
+    bindsym $mod+Shift+D mode "moveL"
 ## end move workspace right
 #
 ## resize windows
     mode "resize" {
+            bindsym l resize grow width 10 px or 10 ppt
             bindsym h resize shrink width 10 px or 10 ppt
-            bindsym t resize grow height 10 px or 10 ppt
-            bindsym n resize shrink height 10 px or 10 ppt
-            bindsym s resize grow width 10 px or 10 ppt
+            bindsym j resize shrink height 10 px or 10 ppt
+            bindsym k resize grow height 10 px or 10 ppt
 
             # same bindings, but for the arrow keys
             bindsym Left resize shrink width 10 px or 10 ppt
@@ -137,9 +138,9 @@
             # back to normal: Enter or Escape or $mod+r
             bindsym space mode "default"
             bindsym Escape mode "default"
-            bindsym $mod+p mode "default"
+            bindsym $mod+d mode "default"
     }
-    bindsym $mod+p mode "resize"
+    bindsym $mod+d mode "resize"
 ## end resize windows
 
 # STARTUP
@@ -184,13 +185,19 @@
     floating_modifier $mod
 
     # kill focused window
-    bindsym $mod+Shift+c kill
+    bindsym $mod+ctrl+c kill
 
     # change focus
-    bindsym $mod+t focus left
-    bindsym $mod+w focus down
-    bindsym $mod+c focus up
-    bindsym $mod+n focus right
+    bindsym $mod+l focus left
+    bindsym $mod+h focus right
+    bindsym $mod+k focus up
+    bindsym $mod+j focus down
+
+    # move focused window
+    bindsym $mod+Shift+h move left
+    bindsym $mod+Shift+j move down
+    bindsym $mod+Shift+k move up
+    bindsym $mod+Shift+l move right
 
     # cursore keys
     bindsym $mod+Left focus left
@@ -198,14 +205,8 @@
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # move focused window
-    bindsym $mod+Shift+t move left
-    bindsym $mod+Shift+m move down
-    bindsym $mod+Shift+g move up
-    bindsym $mod+Shift+n move right
-
     # split in horizontal orientation
-    bindsym $mod+d split h
+    bindsym $mod+w split h
     # split in vertical orientation
     bindsym $mod+v split v
     # enter fullscreen mode for the focused container
@@ -227,7 +228,7 @@
  
 ## launch or control applications
     # start a terminal
-    bindsym $mod+Return exec alacritty
+    bindsym $mod+s exec alacritty
     
     # control vim todo list
     bindsym $mod+Tab workspace $ws_todo; exec $HOME/.config/i3/todo.sh
@@ -242,19 +243,19 @@
     bindsym $mod+r exec $HOME/.config/i3/i3wsorg.py rename
 
     # switching between workspaces
-    bindsym $mod+b workspace next
-    bindsym $mod+m workspace prev
+    bindsym $mod+Shift+N workspace prev
+    bindsym $mod+n workspace next
 
     # switching between workspaces
-    bindsym $mod+ctrl+t focus output left
-    bindsym $mod+ctrl+n focus output right
-    bindsym $mod+ctrl+c focus output up
-    bindsym $mod+ctrl+w focus output down
+    bindsym $mod+ctrl+h focus output left
+    bindsym $mod+ctrl+l focus output right
+    bindsym $mod+ctrl+k focus output up
+    bindsym $mod+ctrl+j focus output down
 
     # change container layout (stacked, tabbed, toggle split)
     bindsym $mod+x layout stacking
-    bindsym $mod+k layout tabbed
-    bindsym $mod+j layout toggle split
+    bindsym $mod+b layout tabbed
+    bindsym $mod+m layout toggle split
     
     # returning on the previous position with the same key
     workspace_auto_back_and_forth yes
@@ -262,7 +263,7 @@
 
 ## WM defaults
     # reload the configuration file
-    bindsym $mod+Shift+J reload
+    bindsym $mod+Shift+R reload
 
     # restart i3 inplace 
     bindsym $mod+Shift+P restart
