@@ -75,12 +75,11 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump zsh-dircolors-solarized zsh-256color fzf git)
+plugins=(tmux autojump zsh-autosuggestions zsh-syntax-highlighting zsh-dircolors-solarized zsh-256color fzf git)
 
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
-
+#
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -115,12 +114,20 @@ bindkey -v
 autoload -Uz compinit compinit
 setopt auto_cd
 
-# search in command history
-bindkey -M viins '^R' history-incremental-search-backward
-bindkey -M vicmd '^R' history-incremental-search-backward
 
 # don't show user name@domain
 prompt_context(){}
+
+# USER SETTINGS
+# fuzzy find your projects and files
+bindkey -s '^F' "tmux_sessionizer\n"
+
+# GLOBAL VARIABLES FOR NNN
+export NNN_PLUG='j:autojump;p:preview-tui;o:fzopen'
+export NNN_FIFO="/tmp/nnn.fifo"
+
+BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 # print actual path as title 
 case $TERM in
