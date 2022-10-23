@@ -1,0 +1,22 @@
+[Added Associations]
+application/x-x509-ca-cert=nvim.desktop;
+application/octet-stream=nvim.desktop;
+x-scheme-handler/mailto=xfce4-mail-reader.desktop;
+application/atom+xml=neovim.desktop;
+application/metalink+xml=firefox.desktop;
+application/metalink4+xml=firefox.desktop;
+application/owl+xml=firefox.desktop;
+application/pdf=firefox.desktop;
+application/mathematica=nvim.desktop;
+application/sdp=nvim.desktop;
+
+[Default Applications]
+x-scheme-handler/mailto=userapp-Evolution-Z6YFU1.desktop
+x-scheme-handler/msteams=teams.desktop
+application/atom+xml=nvim.desktop
+application/metalink+xml=firefox.desktop
+application/metalink4+xml=firefox.desktop
+application/owl+xml=firefox.desktop
+application/pdf=firefox.desktop
+application/mathematica=nvim.desktop
+application/sdp=nvim.desktop
