@@ -7,8 +7,7 @@ require('neorg').setup {
 		["core.norg.qol.toc"] = {},
 		["core.norg.dirman"] = {
 			config = { workspaces = {
-				work = "~/projects/vimwiki_record/work",
-				home = "~/projects/vimwiki_record/home",
+				personal = "~/projects/neorg_record/personal",
 			} } },
 		},
 		-- Set custom logger settings
