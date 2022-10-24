@@ -19,6 +19,7 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-cmdline'
 	use 'onsails/lspkind.nvim'
 	use 'saadparwaiz1/cmp_luasnip'
+    use 'gitsigns.nvim'
 	use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 	use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' }
 	use { "nvim-neorg/neorg", requires = 'nvim-lua/plenary.nvim' }
