@@ -76,6 +76,9 @@
         bindsym ctrl+n move container to workspace number 8 
         bindsym ctrl+s move container to workspace number 9
 
+        bindsym Shift+h move container to output left
+        bindsym Shift+l move container to output right
+
         #return back to normal
         bindsym escape mode "default"
         bindsym space mode "default"
