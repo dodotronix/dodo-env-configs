@@ -49,6 +49,8 @@ ifeq ($(DIST_ID), Arch)
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
 		tasksh oh-my-zsh-git autojump-git nnn-icons \
 		xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu;	
+	@printf "[INF]: configure git" \
+	git config --global commit.verbose true
 else
 	@echo "this is the place for ubuntu packages"
 endif
