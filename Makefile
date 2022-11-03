@@ -30,7 +30,7 @@ ifeq ($(DIST_ID), Arch)
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
 		firewalld ipset lightdm lightdm-gtk-greeter firefox \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
-		xfce4-whiskermenu-plugin dmenu xfce4-session timew \
+		xfce4-whiskermenu-plugin dmenu xfce4-session timew ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen yad xfdesktop xfwm4 \
 		thunar-volman xfce4-sensors-plugin tmux neovim xclip zsh task;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
