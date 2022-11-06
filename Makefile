@@ -28,11 +28,11 @@ ifeq ($(DIST_ID), Arch)
 		pulseaudio pulseaudio-bluetooth blueberry \
 		cups network-manager-applet pulseaudio-alsa \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
-		firewalld ipset lightdm lightdm-gtk-greeter firefox \
+		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session timew ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen yad xfdesktop xfwm4 \
-		thunar-volman xfce4-sensors-plugin tmux neovim xclip zsh task;
+		thunar-volman xfce4-sensors-plugin tmux neovim xclip zsh task fzf;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@type yay >/dev/null 2>@1 || { cd /tmp; \
@@ -61,6 +61,8 @@ configure_all: _install_fonts tmux_config xfce_config \
 _check_software:
 	@type sudo >/dev/null 2>@1 || { \
 		printf 'ERR: "sudo" is probably not installed"\n' >&2; false; }
+	@type lsb_release >/dev/null 2>@1 || { \
+		printf 'ERR: "lsb-release" is probably not installed"\n' >&2; false; }
 
 tmux_config:
 	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux
@@ -77,7 +79,9 @@ xfce_config:
 	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
 		cp -r $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
-		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config
+		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config;
+	@[ -d $$HOME/.config/rofi ] && rm -r $$HOME/.config/rofi; \
+		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
 task_warrior_config:
 	@cp /usr/share/doc/timew/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
@@ -111,8 +115,7 @@ neovim_config:
 
 ## ARCHLINUX SPECIFIC INSTALLATION
 install_kicad:
-	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu; \
-		cd Projects; git clone git@github.com:dodotronix/dodo-env-configs.git; cd
+	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu;
 
 install_flatcam:
 	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
