@@ -191,8 +191,8 @@
     bindsym $mod+ctrl+c kill
 
     # change focus
-    bindsym $mod+l focus left
-    bindsym $mod+h focus right
+    bindsym $mod+h focus left
+    bindsym $mod+l focus right
     bindsym $mod+k focus up
     bindsym $mod+j focus down
 
