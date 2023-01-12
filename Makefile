@@ -47,7 +47,7 @@ ifeq ($(DIST_ID), Arch)
 	@yay --noconfirm -S discord spotify i3-gaps \
 		i3ipc-python-git protonmail-bridge xfce4-genmon-plugin pyright \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
-		tasksh oh-my-zsh-git autojump-git nnn-icons \
+		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino \
 		xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu;	
 	@printf "[INF]: git activated verbose mode.\n" \
 		&& git config --global commit.verbose true
