@@ -1,5 +1,5 @@
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { "norg", "verilog", "c", "lua", "python" },
+	ensure_installed = { "norg", "query", "verilog", "c", "lua", "python" },
 	highlight = { enable = true, },
     autoinstall = true,
     playground = {
