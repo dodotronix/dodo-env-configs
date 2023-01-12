@@ -24,9 +24,9 @@ ifeq ($(DIST_ID), Arch)
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput \
-		evolution gnome-keyring bluez bluez-utils \
-		pulseaudio pulseaudio-bluetooth blueberry \
-		cups network-manager-applet pulseaudio-alsa \
+		evolution-ews gnome-keyring bluez bluez-utils \
+		pulseaudio pulseaudio-bluetooth blueberry lazygit \
+		cups network-manager-applet pulseaudio-alsa ntfs-3g \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
 		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
@@ -35,10 +35,10 @@ ifeq ($(DIST_ID), Arch)
 		thunar-volman xfce4-sensors-plugin tmux neovim xclip zsh task fzf;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
-	@type yay >/dev/null 2>@1 || { cd /tmp; \
+	@which yay &> /dev/null || { cd /tmp; \
 	git clone https://aur.archlinux.org/yay.git; \
 	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH); }
-	@printf "[INF]: Creatating symlinks\n"
+	@printf "[INF]: Creating symlinks\n"
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
 		&& sudo ln -vnsf $(SCRIPT_PATH)/$(XORG_CONFD_DIR)/* \
 		$(XORG_PATH)/$(XORG_CONFD_DIR);
@@ -49,8 +49,8 @@ ifeq ($(DIST_ID), Arch)
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
 		tasksh oh-my-zsh-git autojump-git nnn-icons \
 		xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu;	
-	@printf "[INF]: configure git" \
-	git config --global commit.verbose true
+	@printf "[INF]: git activated verbose mode.\n" \
+		&& git config --global commit.verbose true
 else
 	@echo "this is the place for ubuntu packages"
 endif
@@ -59,14 +59,15 @@ configure_all: _install_fonts tmux_config xfce_config \
 	task_warrior_config zsh_config neovim_config
 	
 _check_software:
-	@type sudo >/dev/null 2>@1 || { \
+	@which sudo &> /dev/null || { \
 		printf 'ERR: "sudo" is probably not installed"\n' >&2; false; }
-	@type lsb_release >/dev/null 2>@1 || { \
+	@which lsb_release &> /dev/null || { \
 		printf 'ERR: "lsb-release" is probably not installed"\n' >&2; false; }
 
 tmux_config:
-	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux
-	@ln -vnsf $(SCRIPT_PATH)/scripts/* $$HOME/.local/bin
+	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux; \
+		[ ! -d $$HOME/.local/bin ] && mkdir $$HOME/.local/bin; \
+		ln -vnsf $(SCRIPT_PATH)/scripts/* $$HOME/.local/bin/
 
 xfce_config:
 	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
@@ -75,6 +76,7 @@ xfce_config:
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false
 # you can find all the active defaults in 
 # /usr/share/applications/mimeinfo.cache
+# TODO remove all xfce cached dirs
 	@ln -vnsf $(SCRIPT_PATH)/xdg/mimeapps.list $$HOME/.config
 	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
 		cp -r $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
