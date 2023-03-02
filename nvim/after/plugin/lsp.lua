@@ -41,7 +41,7 @@ require('lspconfig')['pyright'].setup{
 	end,
 	flags = lsp_flags,
 }
-require('lspconfig')['sumneko_lua'].setup{
+require('lspconfig')['lua_ls'].setup{
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
