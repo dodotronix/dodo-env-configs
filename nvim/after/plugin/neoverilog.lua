@@ -1,1 +1,1 @@
-require'neoverilog.init'
+-- require'neoverilog.init'

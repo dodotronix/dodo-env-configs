@@ -17,7 +17,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 	end,
     root_dir = function() return vim.loop.cwd() end
 } ]]
-require('lspconfig')['svls'].setup{
+--[[ require('lspconfig')['svls'].setup{
     cmd = { "svls", "-d" },
 	capabilities = capabilities,
 	on_attach = function()
@@ -27,7 +27,7 @@ require('lspconfig')['svls'].setup{
 		vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {buffer=0})
 	end,
 	flags = lsp_flags,
-}
+} ]]
 require('lspconfig')['pyright'].setup{
 	capabilities = capabilities,
 	on_attach = function()
