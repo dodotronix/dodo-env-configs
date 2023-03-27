@@ -30,7 +30,7 @@ return require('packer').startup(function(use)
 	use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' }
 	use { "nvim-neorg/neorg", requires = 'nvim-lua/plenary.nvim' }
 	-- plugins development
-	-- use '/home/dodotronix/projects/neoverilog'
-    use 'dodotronix/neoverilog'
+	use '/home/dodotronix/projects/neoverilog'
+    -- use 'dodotronix/neoverilog'
 end)
 

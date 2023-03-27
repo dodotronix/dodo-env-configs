@@ -1,8 +1,9 @@
 font:
   normal:
     family: "MesloLGS NF"
-shell:
-  program: /bin/task
-window:
-  dynamic_title: true
+  size: 10
+# shell:
+#   program: /bin/task
+# window:
+#   dynamic_title: true
 

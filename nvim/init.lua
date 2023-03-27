@@ -1,4 +1,3 @@
-
 vim.g.mapleader = " "
 vim.g.localleader = "\\"
 vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
