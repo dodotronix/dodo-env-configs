@@ -10,4 +10,4 @@ require('nnn').setup({picker = {
 })
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set('n', '<leader>pv', ':NnnPicker<CR>', opts)
+vim.keymap.set('n', '<leader>pv', ':NnnPicker %:p:h<<CR>', opts)
