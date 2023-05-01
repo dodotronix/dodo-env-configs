@@ -28,7 +28,7 @@ ifeq ($(DIST_ID), Arch)
 		pulseaudio pulseaudio-bluetooth blueberry lazygit \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
-		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi \
+		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi llvm clangd \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session timew ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen yad xfdesktop xfwm4 \
@@ -47,7 +47,7 @@ ifeq ($(DIST_ID), Arch)
 	@yay --noconfirm -S discord spotify i3-gaps \
 		i3ipc-python-git protonmail-bridge xfce4-genmon-plugin pyright \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
-		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino \
+		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino verible-git \
 		xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu;	
 	@printf "[INF]: git activated verbose mode.\n" \
 		&& git config --global commit.verbose true
