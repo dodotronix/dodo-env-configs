@@ -31,5 +31,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.completeopt={"menu", "menuone", "noselect"}
+vim.lsp.set_log_level("debug")
 
 require('plugins')
