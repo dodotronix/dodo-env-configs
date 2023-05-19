@@ -1,11 +1,11 @@
 require('neorg').setup {
 	load = {
 		["core.defaults"] = {},
-		["core.norg.journal"] = {},
+		["core.journal"] = {},
 		["core.keybinds"] = {},
-		["core.norg.concealer"] = {},
-		["core.norg.qol.toc"] = {},
-		["core.norg.dirman"] = {
+		["core.concealer"] = {},
+		["core.qol.toc"] = {},
+		["core.dirman"] = {
 			config = { workspaces = {
 				personal = "~/projects/neorg_record/personal",
 			} } },
