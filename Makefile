@@ -24,15 +24,15 @@ ifeq ($(DIST_ID), Arch)
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput \
-		evolution-ews gnome-keyring bluez bluez-utils \
-		pulseaudio pulseaudio-bluetooth blueberry lazygit \
+		gnome-keyring bluez bluez-utils \
+		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
-		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi llvm clangd \
+		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi llvm clang \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
-		xfce4-whiskermenu-plugin dmenu xfce4-session timew ttf-font-awesome \
-		xfce4-settings light-locker thunar nitrogen yad xfdesktop xfwm4 \
-		thunar-volman xfce4-sensors-plugin tmux neovim xclip zsh task fzf;
+		xfce4-whiskermenu-plugin dmenu xfce4-session ttf-font-awesome \
+		xfce4-settings light-locker thunar nitrogen xfdesktop xfwm4 flatpak \
+		thunar-volman xfce4-sensors-plugin neovim xclip zsh task fzf;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@which yay &> /dev/null || { cd /tmp; \
@@ -45,10 +45,11 @@ ifeq ($(DIST_ID), Arch)
 	@printf "[INF]: Installing packages from AUR\n"
 # xfce4-i3-workspaces-plugin-git will be loaded from home 
 	@yay --noconfirm -S discord spotify i3-gaps \
-		i3ipc-python-git protonmail-bridge xfce4-genmon-plugin pyright \
+		python-i3ipc protonmail-bridge xfce4-genmon-plugin pyright \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
-		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino verible-git \
-		xfce4-i3-workspaces-plugin-git --nocleanmenu --nodiffmenu;	
+		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino verible-bin \
+		xfce4-i3-workspaces-plugin-git yad-git tmux-git \
+		--nocleanmenu --nodiffmenu;	
 	@printf "[INF]: git activated verbose mode.\n" \
 		&& git config --global commit.verbose true
 else
