@@ -114,7 +114,9 @@ neovim_config:
 		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim; } || { true; }
 	@ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
-	@curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
+	@[ -d ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins ] && \
+		{ rm -rf ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins; } || { true; }; \
+		curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh;
 
 ## ARCHLINUX SPECIFIC INSTALLATION
 install_kicad:
