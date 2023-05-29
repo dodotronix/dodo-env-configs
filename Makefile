@@ -43,9 +43,9 @@ install_all_packages: _check_software
 	@printf "[INF]: Installing packages from AUR\n"
 # xfce4-i3-workspaces-plugin-git will be loaded from home 
 	@yay --noconfirm -S discord spotify i3-gaps \
-		python-i3ipc protonmail-bridge xfce4-genmon-plugin pyright \
+		python-i3ipc xfce4-panel-profiles protonmail-bridge xfce4-genmon-plugin pyright \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
-		tasksh oh-my-zsh-git autojump-git nnn-icons pomodorino verible-bin \
+		tasksh oh-my-zsh-git autojump nnn-icons pomodorino verible-bin \
 		xfce4-i3-workspaces-plugin-git yad-git tmux-git \
 		--nocleanmenu --nodiffmenu;	
 	@printf "[INF]: git activated verbose mode.\n" \
