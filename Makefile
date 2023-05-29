@@ -18,7 +18,6 @@ init:
 		git clone git@github.com:dodotronix/neorg_record.git;
 
 install_all_packages: _check_software
-ifeq ($(DIST_ID), Arch)
 	@sudo pacman -Syu --noconfirm; \
 		sudo pacman --noconfirm -S  wget gajim emacs \
 		archlinux-keyring bitwarden python alsa-utils \
@@ -36,8 +35,8 @@ ifeq ($(DIST_ID), Arch)
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@which yay &> /dev/null || { cd /tmp; \
-	git clone https://aur.archlinux.org/yay.git; \
-	cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH); }
+		git clone https://aur.archlinux.org/yay.git; \
+		cd yay; makepkg -si --noconfirm; cd $(SCRIPT_PATH); }
 	@printf "[INF]: Creating symlinks\n"
 	@[ -d $(XORG_PATH)/$(XORG_CONFD_DIR) ] \
 		&& sudo ln -vnsf $(SCRIPT_PATH)/$(XORG_CONFD_DIR)/* \
@@ -52,9 +51,6 @@ ifeq ($(DIST_ID), Arch)
 		--nocleanmenu --nodiffmenu;	
 	@printf "[INF]: git activated verbose mode.\n" \
 		&& git config --global commit.verbose true
-else
-	@echo "this is the place for ubuntu packages"
-endif
 
 configure_all: _install_fonts tmux_config xfce_config \
 	task_warrior_config zsh_config neovim_config
