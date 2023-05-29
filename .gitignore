@@ -2,3 +2,6 @@
 **/plugged
 **fonts**
 **packer_compiled**
+.*
+!/.gitignore
+
