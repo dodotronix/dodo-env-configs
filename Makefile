@@ -5,7 +5,6 @@ SCRIPT_PATH:=$(shell pwd)
 XORG_PATH:=/etc/X11
 XORG_CONFD_DIR:=xorg.conf.d
 DIST_ID:=$(shell lsb_release -i | sed 's/.*\:\s*\(.*\)/\1/')
-WORK=\
 
 all:
 	@printf 'USAGE : make test | run\n'
@@ -19,7 +18,7 @@ init:
 
 install_all_packages: _check_software
 	@sudo pacman -Syu --noconfirm; \
-		sudo pacman --noconfirm -S  wget gajim emacs \
+		sudo pacman --noconfirm -S  wget gajim \
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput \
@@ -129,23 +128,10 @@ install_bcnc:
 		python-pluggy python-importlib-metadata python-setuptools-scm python-attrs; \
 		echo "Download BCNC-git PKGBUILD from AUR and change the python2 to python and python2.7 to python3.10"
 
-# install_pain_in_the_ass:
-# ifdef $(WORK)
-# 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; \
-# 		~/.emacs.d/bin/doom install \
-# 	echo "TODO add instaling of pabbrev";
-# endif
-
 # install_work_specific:
-# ifdef $(WORK)
-# ifeq ($(DIST_ID), Arch)
 # 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
 # 		yay --noconfirm -S zoom --nocleanmenu --nodiffmenu; \
 # 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
-# else
-# 	@echo "this is the place for ubuntu"
-# endif
-# endif
 
 # TODO check the imapfilter features
 install_experimental:
