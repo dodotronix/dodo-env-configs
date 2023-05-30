@@ -65,19 +65,18 @@ tmux_config:
 		[ ! -d $$HOME/.local/bin ] && mkdir $$HOME/.local/bin; \
 		ln -vnsf $(SCRIPT_PATH)/scripts/* $$HOME/.local/bin/
 
+# TODO remove all xfce cached dirs
+# you can find all the active defaults in
+# /usr/share/applications/mimeinfo.cache 
 xfce_config:
 	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
 		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -n -t string -s xfsettingsd; \
-		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false
-# you can find all the active defaults in 
-# /usr/share/applications/mimeinfo.cache
-# TODO remove all xfce cached dirs
-	@ln -vnsf $(SCRIPT_PATH)/xdg/mimeapps.list $$HOME/.config
-	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
+		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false \
 		cp -r $(SCRIPT_PATH)/xfce4 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/autostart $$HOME/.config;
+		ln -vnsf $(SCRIPT_PATH)/xdg/mimeapps.list $$HOME/.config
 	@[ -d $$HOME/.config/rofi ] && rm -r $$HOME/.config/rofi; \
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
