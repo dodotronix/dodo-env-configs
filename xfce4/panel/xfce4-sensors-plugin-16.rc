@@ -1,28 +1,20 @@
 [General]
 Show_Labels=false
 Cover_All_Panel_Rows=true
-Lines_Size=1
-Preferred_Height=422
+Update_Interval=10
+Preferred_Height=521
 Number_Chips=10
 
 [Chip0]
-Name=coretemp-0
+Name=ucsi_source_psy_USBC000:001-0
 Number=0
-
-[Chip0_Feature0]
-Address=0
-Name=Package id 0
-Color=#00B000
-Show=true
-Min=0.00
-Max=45.00
 
 [Chip1]
 Name=iwlwifi_1-0
 Number=1
 
 [Chip2]
-Name=pch_skylake-0
+Name=thinkpad-0
 Number=2
 
 [Chip3]
@@ -34,11 +26,19 @@ Name=ucsi_source_psy_USBC000:002-0
 Number=4
 
 [Chip5]
-Name=ucsi_source_psy_USBC000:001-0
+Name=coretemp-0
 Number=5
 
+[Chip5_Feature0]
+Address=0
+Name=Package id 0
+Color=#00B000
+Show=true
+Min=0
+Max=65
+
 [Chip6]
-Name=thinkpad-0
+Name=pch_skylake-0
 Number=6
 
 [Chip7]
