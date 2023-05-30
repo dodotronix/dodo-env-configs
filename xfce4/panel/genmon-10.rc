@@ -1,6 +1,6 @@
-Command=/home/dodotronix/projects/dodo-env-configs/taskwarrior/task_indicator.sh
+Command=zsh -c ".local/bin/task_indicator.sh"
 UseLabel=0
-Text=(genmon)
-UpdatePeriod=30000
+Text=taskwarrior
+UpdatePeriod=5
 Font=Sans 10
 
