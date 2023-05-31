@@ -147,14 +147,7 @@
 ## end resize windows
 
 # STARTUP
-## startups
-    #exec --no-startup-id pidgin
-    #exec --no-startup-id nm-applet
-    #exec --no-startup-id dropbox
-    #exec --no-startup-id claws-mail
-    #exec --no-startup-id firefox
-    #exec --no-startup-id ksmserver 
-    
+## additional scripts 
     exec --no-startup-id $HOME/.config/i3/i3wsort.py
     exec --no-startup-id $HOME/.config/i3/todo.sh
     exec_always --no-startup-id i3-msg 'rename workspace "1" to "5:d|empty"' 
