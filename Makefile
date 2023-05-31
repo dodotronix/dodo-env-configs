@@ -24,7 +24,7 @@ install_all_packages: _check_software
 		xf86-input-synaptics xf86-input-libinput \
 		gnome-keyring bluez bluez-utils \
 		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
-		cups network-manager-applet pulseaudio-alsa ntfs-3g \
+		cups network-manager-applet pulseaudio-alsa ntfs-3g flatpak \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
 		firewalld ipset lightdm lightdm-gtk-greeter firefox rofi llvm clang \
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
