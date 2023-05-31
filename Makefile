@@ -112,6 +112,9 @@ neovim_config:
 		{ rm -rf ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins; } || { true; }; \
 		curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh;
 
+upload_rules:
+	@sudo ln -vnsf $(SCRIPT_PATH)/rules/* /etc/udev/rules.d
+
 ## ARCHLINUX SPECIFIC INSTALLATION
 install_kicad:
 	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu;
