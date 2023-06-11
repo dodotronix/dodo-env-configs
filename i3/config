@@ -9,17 +9,6 @@
 #   * download nerd-fonts-complete 
 # ---------------------------------------------------------------------------- #
 
-#exec --no-startup-id nitrogen --restore
-#exec --no-startup-id synergy
-#exec --no-startup-id nm-applet
-#exec --no-startup-id dropbox
-#exec --no-startup-id gajim
-#exec --no-startup-id xfce4-panel --disable-wm-check
-
-
-#exec --no-startup-id evolution 
-#exec --no-startup-id firefox
-
 # COLORS
     # class                | border | background | text    | indicator | child_border |
     client.focused          #4d8341   #69ab55      #ffffff   #be302f     #69ab55
@@ -148,9 +137,8 @@
 
 # STARTUP
 ## additional scripts 
-    exec --no-startup-id $HOME/.config/i3/i3wsort.py
-    exec --no-startup-id $HOME/.config/i3/todo.sh
-    exec_always --no-startup-id i3-msg 'rename workspace "1" to "5:d|empty"' 
+    exec --no-startup-id $HOME/.config/i3/workspace_manager.py
+
 ## end startups
 
 # FONTS
@@ -161,13 +149,6 @@
 ## platform dependent keybindings
     # set global modifier variable
     set $mod Mod1
-    # lock screen
-    bindsym XF86ScreenSaver exec $HOME/.config/i3/lock_screen.sh 
-    # suspend
-    bindsym XF86Sleep exec systemctl suspend  
-    # screenshot
-    bindsym Print exec deepin-screenshot
-
     #increase sound volume
     bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 3%+ 
     #decrease sound volume
@@ -227,7 +208,8 @@
     bindsym $mod+s exec alacritty
     
     # control vim todo list
-    bindsym $mod+Tab workspace $ws_todo; exec $HOME/.config/i3/todo.sh
+    # bindsym $mod+Tab workspace $ws_todo; exec $HOME/.config/i3/todo.sh
+    bindsym $mod+Tab nop "open_todo"
 
     #start dmenu
     bindsym $mod+e exec "rofi -show combi"
@@ -235,8 +217,8 @@
 
 ## manipulate workspaces
     # append and rename workspace
-    bindsym $mod+a exec $HOME/.config/i3/i3wsorg.py append
-    bindsym $mod+r exec $HOME/.config/i3/i3wsorg.py rename
+    bindsym $mod+a nop "workspace_append"
+    bindsym $mod+r nop "workspace_rename"
 
     # switching between workspaces
     bindsym $mod+Shift+N workspace prev
