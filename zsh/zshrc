@@ -103,6 +103,7 @@ export PATH=$PATH:$HOME/.local/bin
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias tw="taskwarrior-tui"
 
 # Personal setup
 [[ ! -f ~/.personal_cfg.zsh ]] || source ~/.personal_cfg.zsh

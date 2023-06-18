@@ -26,7 +26,7 @@ install_all_packages: _check_software
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput \
-		gnome-keyring bluez bluez-utils \
+		gnome-keyring bluez bluez-utils taskwarrior_tui \
 		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g flatpak \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
