@@ -108,9 +108,6 @@ _install_fonts:
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
 neovim_config:
-	@[ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ] && { \
-		git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-		~/.local/share/nvim/site/pack/packer/start/packer.nvim; } || { true; }
 	@ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
 	@[ -d ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins ] && \
 		{ rm -rf ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins; } || { true; }; \
