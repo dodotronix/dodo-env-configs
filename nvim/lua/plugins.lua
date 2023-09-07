@@ -57,6 +57,16 @@ require("lazy").setup({
   { 'nvim-telescope/telescope.nvim', tag = '0.1.0' },
   { "nvim-neorg/neorg", build=":Neorg sync-parsers"},
 
+  {
+      "jackMort/ChatGPT.nvim",
+      event = "VeryLazy",
+      dependencies = {
+          "MunifTanjim/nui.nvim",
+          "nvim-lua/plenary.nvim",
+          "nvim-telescope/telescope.nvim"
+      }
+  },
+
   -- plugins development
   {dir='/home/dodotronix/projects/neoSVmode'}
   -- 'dodotronix/neoSVmode'
