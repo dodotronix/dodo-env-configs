@@ -2,6 +2,16 @@ require('nvim-treesitter.configs').setup {
 	ensure_installed = { "norg", "query", "verilog", "c", "lua", "python" },
 	highlight = { enable = true, },
     autoinstall = true,
+    indent = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<c-space>',
+            node_incremental = '<c-space>',
+            scope_incremental = '<c-s>',
+            node_decremental = '<M-space>',
+        },
+    },
     playground = {
         enable = true,
         disable = {},
