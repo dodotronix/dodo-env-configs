@@ -1,4 +1,5 @@
 **nvim/autoload
+**nvim/lazy-lock.json
 **/plugged
 **fonts**
 **packer_compiled**
