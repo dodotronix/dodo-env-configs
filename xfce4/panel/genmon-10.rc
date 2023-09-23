@@ -1,6 +1,0 @@
-Command=zsh -c ".local/bin/task_indicator.sh"
-UseLabel=0
-Text=taskwarrior
-UpdatePeriod=5
-Font=Sans 10
-
