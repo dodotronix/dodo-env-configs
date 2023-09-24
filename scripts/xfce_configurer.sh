@@ -10,10 +10,12 @@ xfconf-query -n -c xfce4-panel -p "/panels/panel-0/plugin-ids" -a \
     -t int -s 2 \
     -t int -s 3 \
     -t int -s 4 \
+    -t int -s 5 \
     -t int -s 6 \
-    -t int -s 7 \
     -t int -s 8 \
-    -t int -s 9
+    -t int -s 9 \
+    -t int -s 10 \
+    -t int -s 11 
 
 ## CREATE PLUGINS
 
@@ -38,10 +40,24 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-3 \
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-4 \
     -t string -s 'separator'
-xfconf-query -c xfce4-panel -np /plugins/plugin-4/expand \
-    -t bool -s 'true' 
 xfconf-query -c xfce4-panel -np /plugins/plugin-4/style \
     -t uint -s 0 
+
+# TASKWARRIOR GENMON
+xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
+    -t string -s 'genmon'
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/command \
+    -t string -s 'zsh -c .local/bin/task_indicator.sh;'
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/use-label \
+    -t bool -s 'true'
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/text \
+    -t string -s ''
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/font \
+    -t string -s 'Sans 16'
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/enable-single-row \
+    -t bool -s 'true'
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/update-period \
+    -t int -s 10000
 
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
@@ -51,17 +67,25 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-6/expand \
 xfconf-query -c xfce4-panel -np /plugins/plugin-6/style \
     -t uint -s 0 
 
-xfconf-query -c xfce4-panel -np /plugins/plugin-7 \
-    -t string -s 'power-manager-plugin'
-
+# SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-8 \
     -t string -s 'separator'
+xfconf-query -c xfce4-panel -np /plugins/plugin-8/expand \
+    -t bool -s 'true' 
 xfconf-query -c xfce4-panel -np /plugins/plugin-8/style \
     -t uint -s 0 
 
 xfconf-query -c xfce4-panel -np /plugins/plugin-9 \
+    -t string -s 'power-manager-plugin'
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-10 \
+    -t string -s 'separator'
+xfconf-query -c xfce4-panel -np /plugins/plugin-10/style \
+    -t uint -s 0 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-11 \
     -t string -s 'systray'
-xfconf-query -c xfce4-panel -np /plugins/plugin-9/icon-size \
+xfconf-query -c xfce4-panel -np /plugins/plugin-11/icon-size \
     -t int -s 0
 
 xfce4-panel --restart 
@@ -80,7 +104,9 @@ xfconf-query -n -c xfce4-panel -p "/panels/panel-0/plugin-ids" -a \
     -t int -s 6 \
     -t int -s 7 \
     -t int -s 8 \
-    -t int -s 9
+    -t int -s 9 \
+    -t int -s 10 \
+    -t int -s 11 
 
 # i3-workspaces are configured using css file
 # so it has to be generated here
@@ -100,9 +126,10 @@ if [ ! -d $PANEL_DIR ]; then
     mkdir $PANEL_DIR
 fi
 
-echo "$I3_WS_CSS" > $PANEL_DIR/i3-workspaces-5.rc
+rm -rf $PANEL_DIR/i3-workspaces*
+echo "$I3_WS_CSS" > $PANEL_DIR/i3-workspaces-7.rc
 
-xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
+xfconf-query -c xfce4-panel -np /plugins/plugin-7 \
     -t string -s 'i3-workspaces'
 
 xfce4-panel --restart 
