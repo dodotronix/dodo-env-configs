@@ -77,6 +77,7 @@ xfce_config:
 		ln -vnsf $(SCRIPT_PATH)/xdg/mimeapps.list $$HOME/.config; \
 		source $(SCRIPT_PATH)/scripts/xfce_configurer.sh \
 		rm -rf $$HOME/.cache/*
+	@ln -vnsf $(SCRIPT_PATH)/Xresources $$HOME/.Xrecources;
 	@[ -d $$HOME/.config/rofi ] && rm -r $$HOME/.config/rofi; \
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
