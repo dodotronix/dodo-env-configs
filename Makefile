@@ -73,13 +73,10 @@ tmux_config:
 # you can find all the active defaults in
 # /usr/share/applications/mimeinfo.cache 
 xfce_config:
-	@[ -d $$HOME/.config/xfce4 ] && rm -r $$HOME/.config/xfce4; \
-		ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
+	@ln -vnsf $(SCRIPT_PATH)/i3 $$HOME/.config; \
 		ln -vnsf $(SCRIPT_PATH)/xdg/mimeapps.list $$HOME/.config; \
-		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -n -t string -s i3; \
-		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -n -t string -s xfsettingsd; \
-		xfconf-query -c xfce4-session -p /sessions/Failsafe/Client4_Command -n -t bool -s false; \
-		source $(SCRIPT_PATH)/scripts/xfce_configurer.sh
+		source $(SCRIPT_PATH)/scripts/xfce_configurer.sh \
+		rm -rf $$HOME/.cache/*
 	@[ -d $$HOME/.config/rofi ] && rm -r $$HOME/.config/rofi; \
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
