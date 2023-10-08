@@ -2,10 +2,15 @@
 # NOTES if you want to see, what properties you set run following command
 #xfconf-query -c xfce4-panel -m
 
+xfconf-query -c xfce4-session -np /general/SessionName -t string -s Failsafe
+xfconf-query -c xfce4-session -np /sessions/Failsafe/Client0_Command -a -t string -s i3
+xfconf-query -c xfce4-session -np /sessions/Failsafe/Client4_Command -a -t string -s "" 
+
 # remove all plugins from the panel
 xfconf-query -c xfce4-panel -p /plugins -r -R
 
-xfconf-query -n -c xfce4-panel -p "/panels/panel-0/plugin-ids" -a \
+xfconf-query -c xfce4-panel -np "/panels/dark-mode" -t bool -s true 
+xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 1 \
     -t int -s 2 \
     -t int -s 3 \
@@ -17,8 +22,12 @@ xfconf-query -n -c xfce4-panel -p "/panels/panel-0/plugin-ids" -a \
     -t int -s 10 \
     -t int -s 11 
 
-## CREATE PLUGINS
+xfconf-query -c xfce4-panel -np "/panels/panel-0/size" -t uint -s "45"
+xfconf-query -c xfce4-panel -np "/panels/panel-0/icon-size" -t uint -s 0 
+xfconf-query -c xfce4-panel -np "/panels/panel-0/position-locked" -t bool -s true 
+xfconf-query -c xfce4-panel -p /panels -a -t int -s 0
 
+## CREATE PLUGINS
 xfconf-query -c xfce4-panel -np /plugins/plugin-1 \
     -t string -s 'clock'
 xfconf-query -c xfce4-panel -np /plugins/plugin-1/digital-time-format \
@@ -95,7 +104,7 @@ xfce4-panel --restart
 # update when we rewrite the i3-workspaces-X.rc file
 sleep 1
 
-xfconf-query -n -c xfce4-panel -p "/panels/panel-0/plugin-ids" -a \
+xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 1 \
     -t int -s 2 \
     -t int -s 3 \
@@ -123,7 +132,7 @@ output= "
 
 PANEL_DIR=$HOME/.config/xfce4/panel
 if [ ! -d $PANEL_DIR ]; then
-    mkdir $PANEL_DIR
+    mkdir -p $PANEL_DIR
 fi
 
 rm -rf $PANEL_DIR/i3-workspaces*
