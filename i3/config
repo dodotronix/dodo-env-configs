@@ -143,7 +143,7 @@
 
 # FONTS
     # Font for window titles.
-    font pango:FontAwesome 12
+    font pango:FontAwesome 16
 
 # KEYBINDINGS
 ## platform dependent keybindings
