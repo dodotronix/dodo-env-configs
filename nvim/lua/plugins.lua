@@ -4,7 +4,7 @@ require("lazy").setup({
   'EdenEast/nightfox.nvim',
   'nvim-lualine/lualine.nvim',
   'fedepujol/move.nvim',
-  'soywod/himalaya',
+  'https://git.sr.ht/~soywod/himalaya-vim',
   'nvim-treesitter/nvim-treesitter',
   'nvim-treesitter/playground',
   'nvim-treesitter/nvim-treesitter-context',
@@ -43,19 +43,19 @@ require("lazy").setup({
           -- Adds LSP completion capabilities
           'hrsh7th/cmp-nvim-lsp',
           -- Adds a number of user-friendly snippets
-          'rafamadriz/friendly-snippets' 
+          'rafamadriz/friendly-snippets'
       },
   },
 
-  'hrsh7th/cmp-path',
-  'hrsh7th/cmp-nvim-lua',
-  'hrsh7th/cmp-cmdline',
-  'onsails/lspkind.nvim',
-  'lewis6991/gitsigns.nvim',
-  'p00f/nvim-ts-rainbow',
-  'nvim-lua/plenary.nvim',
-  { 'nvim-telescope/telescope.nvim', tag = '0.1.0' },
-  { "nvim-neorg/neorg", build=":Neorg sync-parsers"},
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-cmdline',
+    'onsails/lspkind.nvim',
+    'lewis6991/gitsigns.nvim',
+    'p00f/nvim-ts-rainbow',
+    { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
+        dependencies = {'nvim-lua/plenary.nvim'}},
+    { "nvim-neorg/neorg", build=":Neorg sync-parsers"},
 
   {
       "jackMort/ChatGPT.nvim",
