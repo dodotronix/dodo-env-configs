@@ -68,6 +68,8 @@ require("lazy").setup({
       }
   },
 
+{'Exafunction/codeium.vim', event = 'BufEnter'},
+
   -- plugins development
   {dir='/home/dodotronix/projects/neoSVmode'}
   -- 'dodotronix/neoSVmode'
