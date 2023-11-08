@@ -1,22 +1,41 @@
 [Added Associations]
 application/x-x509-ca-cert=nvim.desktop;
 application/octet-stream=nvim.desktop;
-x-scheme-handler/mailto=xfce4-mail-reader.desktop;
-application/atom+xml=neovim.desktop;
+x-scheme-handler/mailto=Evolution.desktop
+application/atom+xml=nvim.desktop;
 application/metalink+xml=firefox.desktop;
 application/metalink4+xml=firefox.desktop;
 application/owl+xml=firefox.desktop;
-application/pdf=firefox.desktop;
 application/mathematica=nvim.desktop;
 application/sdp=nvim.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+application/x-lzpdf=org.gnome.Evince.desktop;
+application/gml+xml=firefox.desktop;
+message/rfc822=libreoffice-writer.desktop;
+image/jpeg=deepin-image-viewer.desktop;
 
 [Default Applications]
-x-scheme-handler/mailto=userapp-Evolution-Z6YFU1.desktop
+x-scheme-handler/mailto=Evolution.desktop
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
 application/atom+xml=nvim.desktop
 application/metalink+xml=firefox.desktop
 application/metalink4+xml=firefox.desktop
 application/owl+xml=firefox.desktop
-application/pdf=firefox.desktop
 application/mathematica=nvim.desktop
 application/sdp=nvim.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+text/html=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
+application/gml+xml=firefox.desktop
+application/x-lzpdf=org.gnome.Evince.desktop
+application/pdf=org.gnome.Evince.desktop
