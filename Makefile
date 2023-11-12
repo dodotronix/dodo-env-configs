@@ -1,19 +1,14 @@
-
 #Makefile for dodotronix's enviroment setup
-
-# TODO try to use x-on-resize to rename the workspace when new screen is
-# plugged
-# fix the wrong renaming when two screens
 
 SCRIPT_PATH:=$(shell pwd)
 XORG_PATH:=/etc/X11
 XORG_CONFD_DIR:=xorg.conf.d
-DIST_ID:=$(shell lsb_release -i | sed 's/.*\:\s*\(.*\)/\1/')
 
 all:
-	@printf 'USAGE : make test | run\n'
-	@printf '        test - test recipe for makefile development\n'
-	@printf '        run  - checks the sofware and install the complete env\n' 
+	@printf 'USAGE : make init            | install_all_packages | configure_all\n'
+	@printf '             tmux_config     | task_warrior_config  | tmux_config\n'
+	@printf '             neovim_config   | install_kicad        |  xfce_config\n'
+	@printf '             install_neomutt | \n'
 
 init:
 	@git submodule update --init --recursive
@@ -47,7 +42,8 @@ install_all_packages: _check_software
 	@printf "[INF]: Installing packages from AUR\n"
 # xfce4-i3-workspaces-plugin-git will be loaded from home 
 	@yay --noconfirm -S discord spotify i3-gaps \
-		python-i3ipc xfce4-panel-profiles protonmail-bridge xfce4-genmon-plugin pyright \
+		python-i3ipc xfce4-panel-profiles protonmail-bridge-bin \
+		xfce4-genmon-plugin pyright \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
 		tasksh oh-my-zsh-git autojump nnn-icons pomodorino verible-bin \
 		xfce4-i3-workspaces-plugin-git yad-git tmux-git \
@@ -112,26 +108,24 @@ neovim_config:
 		{ rm -rf ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins; } || { true; }; \
 		curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh;
 
-## ARCHLINUX SPECIFIC INSTALLATION
 install_kicad:
 	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu;
 
-install_flatcam:
-	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
-		echo "replace import collections with import collections.abc as collections in
-	all files which will raise an exception"; \
-		sudo pip uninistall vispy && sudo pip install vispy==0.7
+# install_flatcam:
+# 	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
+# 		echo "replace import collections with import collections.abc as collections in
+# 	all files which will raise an exception"; \
+# 		sudo pip uninistall vispy && sudo pip install vispy==0.7
 
-install_bcnc:
-	@sudo pacman --noconfirm -S python-wcwidth python-attrs python-more-itertools \
-		python-pluggy python-importlib-metadata python-setuptools-scm python-attrs; \
-		echo "Download BCNC-git PKGBUILD from AUR and change the python2 to python and python2.7 to python3.10"
+# install_bcnc:
+# 	@sudo pacman --noconfirm -S python-wcwidth python-attrs python-more-itertools \
+# 		python-pluggy python-importlib-metadata python-setuptools-scm python-attrs; \
+# 		echo "Download BCNC-git PKGBUILD from AUR and change the python2 to python and python2.7 to python3.10"
 
 # install_work_specific:
 # 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
 # 		yay --noconfirm -S zoom --nocleanmenu --nodiffmenu; \
 # 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
 
-# TODO check the imapfilter features
-install_experimental:
-	@yay --noconfirm -S imapfilter abook mutt-wizard-git neomutt-git --nocleanmenu --nodiffmenu
+install_neomutt:
+	@yay --noconfirm -S pass imapfilter abook mutt-wizard-git neomutt-git --nocleanmenu --nodiffmenu
