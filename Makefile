@@ -43,7 +43,7 @@ install_all_packages: _check_software
 # xfce4-i3-workspaces-plugin-git will be loaded from home 
 	@yay --noconfirm -S discord spotify i3-gaps \
 		python-i3ipc xfce4-panel-profiles protonmail-bridge-bin \
-		xfce4-genmon-plugin pyright \
+		xfce4-genmon-plugin pyright antigen-git \
 		lua-language-server-git svls python-pynvim ueberzug taskd-git \
 		tasksh oh-my-zsh-git autojump nnn-icons pomodorino verible-bin \
 		xfce4-i3-workspaces-plugin-git yad-git tmux-git \
@@ -87,11 +87,6 @@ zsh_config:
 	@printf "make the zsh default shell\n"; \
 		sudo chsh -s $$(which zsh); \
 		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
-		[ ! -d $$HOME/.oh-my-zsh/custom/plugins ] && { mkdir -p  $$HOME/.oh-my-zsh/custom/plugins; } || { rm -rf $$HOME/.oh-my-zsh/custom/plugins/*; }; \
-		git clone https://github.com/joel-porquet/zsh-dircolors-solarized.git $$HOME/.oh-my-zsh/custom/plugins/zsh-dircolors-solarized; \
-		git clone https://github.com/chrissicool/zsh-256color.git $$HOME/.oh-my-zsh/custom/plugins/zsh-256color; \
-		git clone https://github.com/zsh-users/zsh-autosuggestions.git $$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
 		[ ! -f $$HOME/.personal_cfg.zsh ] && { touch $$HOME/.personal_cfg.zsh; } || { true; } 
 
 _install_fonts:
