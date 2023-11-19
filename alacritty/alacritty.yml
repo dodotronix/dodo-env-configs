@@ -18,12 +18,13 @@ cursor:
     vi_mode_style: Beam
 selection:
   save_to_clipboard: true
-
-key_bindings:
-  - { key: Space, mods: Control, mode: ~Search, action: ToggleViMode }
-
-# shell:
-#   program: /bin/task
 # window:
 #   dynamic_title: true
+
+key_bindings:
+  - {key: Space, mods: Control, mode: ~Search, action: ToggleViMode }
+  - { key: P, mods: Control|Alt, mode: ~Search, action: Paste }
+
+# all the configs can you find at every realease in the config sample file
+# https://github.com/alacritty/alacritty/releases
 
