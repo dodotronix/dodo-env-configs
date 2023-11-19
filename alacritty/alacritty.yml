@@ -1,7 +1,27 @@
 font:
   normal:
     family: "MesloLGS NF"
+    style: Regular
+  italic:
+    family: "MesloLGS NF"
+    style: Regular Italic
+  bold:
+    family: "MesloLGS NF"
+    style: Bold
+  bold_italic:
+    family: "MesloLGS NF"
+    style: Bold Italic
   size: 14
+startup_mode: Maximized
+cursor:
+  style: 
+    vi_mode_style: Beam
+selection:
+  save_to_clipboard: true
+
+key_bindings:
+  - { key: Space, mods: Control, mode: ~Search, action: ToggleViMode }
+
 # shell:
 #   program: /bin/task
 # window:
