@@ -6,7 +6,7 @@ XORG_CONFD_DIR:=xorg.conf.d
 
 all:
 	@printf 'USAGE : make init            | install_all_packages | configure_all\n'
-	@printf '             tmux_config     | task_warrior_config  | tmux_config\n'
+	@printf '             tmux_config     | task_warrior_config  | zsh_config\n'
 	@printf '             neovim_config   | install_kicad        |  xfce_config\n'
 	@printf '             install_neomutt | \n'
 

@@ -1,5 +1,14 @@
 source /usr/share/zsh/share/antigen.zsh
 
+# experimental
+# antigen bundle jeffreytse/zsh-vi-mode
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle joel-porquet/zsh-dircolors-solarized.git
+antigen bundle chrissicool/zsh-256color
+
 antigen use oh-my-zsh
 
 # Load the theme.
@@ -9,13 +18,6 @@ antigen bundle autojump
 antigen bundle git 
 antigen bundle tmux
 antigen bundle fzf 
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle jeffreytse/zsh-vi-mode
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle joel-porquet/zsh-dircolors-solarized.git
-antigen bundle chrissicool/zsh-256color
 
 antigen apply
 
@@ -41,6 +43,20 @@ bindkey -v
 
 # don't show user name@domain
 prompt_context(){}
+
+# USER SETTINGS
+#
+# Experimental
+# function my_custom_widget() {
+#     tmux_sessionizer
+#     zle reset-prompt
+# }
+
+# function zvm_after_lazy_keybindings()
+# {
+#     zvm_define_widget my_custom_widget
+#     bindkey -M vicmd '^F' my_custom_widget  
+# }
 
 # fuzzy find your projects and files
 bindkey -s '^F' "tmux_sessionizer\n"
