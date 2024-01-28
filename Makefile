@@ -29,7 +29,7 @@ install_all_packages: _check_software
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen xfdesktop xfwm4 flatpak \
-		thunar-volman xfce4-sensors-plugin neovim xclip zsh task fzf;
+		thunar-volman xfce4-sensors-plugin neovim xclip zsh task fzf ntp;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@which yay &> /dev/null || { cd /tmp; \
@@ -53,6 +53,7 @@ install_all_packages: _check_software
 
 configure_all: _install_fonts tmux_config xfce_config \
 	task_warrior_config zsh_config neovim_config
+	@sudo systemctl enable ntpd.service && sudo systemctl start ntpd.service;
 	
 _check_software:
 	@which sudo &> /dev/null || { \
@@ -80,7 +81,9 @@ xfce_config:
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
 task_warrior_config:
-	@cp /usr/share/doc/timew/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
+	@[ ! -d $$HOME/.task ] && mkdir -p $$HOME/.task; \
+		ln -vnsf $(SCRIPT_PATH)/taskwarrior/* $$HOME/.task; \
+		cp /usr/share/doc/timew/ext/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
 		chmod +x on-modify.timewarrior; echo "Download configuration script from taskwing web"
 
 zsh_config: 

@@ -1,0 +1,119 @@
+# list of colors (since TW does not support variables)
+# orange: color214
+# violet: color141
+# turquoise: color50
+# dark red: color203
+# rose: color174
+# light green: color119
+# yellow: color220 
+# blue: color75 
+# light gray: color242
+# dark gray: color241
+#
+# color palette: https://1.bp.blogspot.com/-zDvzlrGWwLs/T2wudeInNbI/AAAAAAAABrE/9Vq0cKd7hHw/s1600/HEX+Colour+Code+3.png
+
+color.label=color75
+color.active=color119
+
+color.overdue=color203 
+color.recurring=color141
+color.tagged=color174
+color.completed=color119
+color.deleted=color241
+color.blocking=color58
+color.blocked=white on color8
+
+color.debug=color75
+color.warning=color220
+color.error=white on color203 
+
+color.due=color1
+color.due.today=rgb400
+color.scheduled=on rgb001
+
+color.header=color3
+color.footnote=color3
+
+color.summary.background=rgb500
+color.summary.bar=black on rgb141
+
+color.calendar.due=color0 on color1
+color.calendar.due.today=color15 on color1
+color.calendar.holiday=color0 on color11
+color.calendar.overdue=color0
+color.calendar.scheduled=rgb013 on color15
+color.calendar.today=color15 on rgb013
+color.calendar.weekend=on color235
+color.calendar.weeknumber=rgb013
+
+color.burndown.done=on rgb010
+color.burndown.pending=on color9
+color.burndown.started=on color11
+
+color.history.add=color0 on rgb500
+color.history.delete=color0 on rgb550
+color.history.done=color0 on rgb050
+
+color.sync.added=rgb010
+color.sync.changed=color11
+color.sync.rejected=color9
+
+color.uda.priority.H=color255
+color.uda.priority.L=color245
+color.uda.priority.M=color250
+
+color.undo.after=color2
+color.undo.before=color1
+
+color.alternate=
+color.label.sort=
+color.label.sort=
+color.project.none=
+color.tag.none=
+color.tag.next=
+color.until=
+
+# Terminal user interface
+# https://kdheepak.com/taskwarrior-tui/configuration/advanced/
+
+# interface colors
+uda.taskwarrior-tui.style.navbar=color50
+uda.taskwarrior-tui.style.command=color119
+uda.taskwarrior-tui.style.context.active=color50
+uda.taskwarrior-tui.style.calendar.title=color50
+
+uda.taskwarrior-tui.style.report.scrollbar.area=color119
+uda.taskwarrior-tui.style.report.scrollbar=
+uda.taskwarrior-tui.style.report.selection=color214 on color242
+uda.taskwarrior-tui.style.report.completion_pane=color242
+uda.taskwarrior-tui.style.report.completion_pane_highlight=color242
+
+# interface style
+uda.taskwarrior-tui.selection.indicator=•
+uda.taskwarrior-tui.selection.bold=yes
+uda.taskwarrior-tui.selection.italic=no
+uda.taskwarrior-tui.selection.dim=no
+uda.taskwarrior-tui.selection.blink=no
+uda.taskwarrior-tui.selection.reverse=no
+
+uda.taskwarrior-tui.scrollbar.indicator=█
+uda.taskwarrior-tui.scrollbar.area=║
+
+uda.taskwarrior-tui.mark.indicator=✔
+uda.taskwarrior-tui.unmark.indicator=
+uda.taskwarrior-tui.mark-selection.indicator=⦿
+uda.taskwarrior-tui.unmark-selection.indicator=⦾
+
+uda.taskwarrior-tui.task-report.show-info=true
+uda.taskwarrior-tui.task-report.looping=true
+uda.taskwarrior-tui.task-report.jump-on-task-add=true
+uda.taskwarrior-tui.task-report.prompt-on-undo=false
+uda.taskwarrior-tui.task-report.prompt-on-delete=false
+uda.taskwarrior-tui.task-report.prompt-on-done=false
+
+uda.taskwarrior-tui.context-menu.select-on-move=false
+uda.taskwarrior-tui.tabs.change-focus-rotate=false
+uda.taskwarrior-tui.calendar.months-per-row=4
+
+uda.taskwarrior-tui.background_process=task sync
+uda.taskwarrior-tui.background_process_period=60
