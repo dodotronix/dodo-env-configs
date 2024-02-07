@@ -211,6 +211,8 @@
     # bindsym $mod+Tab workspace $ws_todo; exec $HOME/.config/i3/todo.sh
     bindsym $mod+Tab nop "open_todo"
 
+    bindsym $mod+o nop "open_neomutt"
+
     #start dmenu
     bindsym $mod+e exec "rofi -show combi"
 ## end launch or control applications
@@ -270,6 +272,7 @@
 
     # workspace containing mail client
     assign [class="(?i)Evolution"] workspace $ws_mail
+    assign [title="(?i)Neomutt"] workspace $ws_mail
     workspace $ws_mail output primary
 
     # workspace containing todo list

@@ -27,6 +27,15 @@ def open_todo(i3):
     os.system('alacritty --title "todo-list" -e nvim -c "Neorg workspace personal" &')
     i3.command('workspace "{}"'.format(ws_name))
 
+def open_neomutt(i3):
+    ws_name = "1:o|📡"
+    a = i3.get_tree()
+    if a.find_titled("neomutt"):
+        i3.command('workspace "{}"'.format(ws_name))
+        return 0
+    os.system('alacritty --title "neomutt" -e neomutt &')
+    i3.command('workspace "{}"'.format(ws_name))
+
 def workspace_append(i3):
     k = ['d', 'h', 't',  'n', 's']
     name = open_input_window()
@@ -78,6 +87,8 @@ def custom_binding_resolver(i3, e):
         workspace_rename(i3)
     elif matched.group(1) == "open_todo":
         open_todo(i3)
+    elif matched.group(1) == "open_neomutt":
+        open_neomutt(i3)
 
 def tag_workspaces(i3, e):
     pos = max([x.num for x in i3.get_workspaces()])
