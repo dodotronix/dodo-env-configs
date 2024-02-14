@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import re
-import os
 import subprocess
 
 from i3ipc import Connection, Event
@@ -21,20 +20,25 @@ def open_input_window():
 def open_todo(i3):
     ws_name = "4:i|📝"
     a = i3.get_tree()
+    # TODO if one user is already switched to the space
     if a.find_titled("todo-list"):
         i3.command('workspace "{}"'.format(ws_name))
         return 0
-    os.system('alacritty --title "todo-list" -e nvim -c "Neorg workspace personal" &')
+    subprocess.Popen(['alacritty', '--title', '"todo-list"', '-e', 
+                      'nvim', '-c', 'Neorg workspace personal'], 
+                     stdin=None, stdout=None, stderr=None, close_fds=True)
     i3.command('workspace "{}"'.format(ws_name))
 
 def open_neomutt(i3):
     ws_name = "1:o|📡"
     a = i3.get_tree()
+    # TODO if one user is already switched to the space
     if a.find_titled("neomutt"):
         i3.command('workspace "{}"'.format(ws_name))
         return 0
-    os.system('alacritty --title "neomutt" -e neomutt &')
     i3.command('workspace "{}"'.format(ws_name))
+    subprocess.Popen(['alacritty', '--title', '"neomutt"', '-e', 'zsh', '-c', 'EDITOR=nvim BROWSER=firefox neomutt'], 
+                   stdin=None, stdout=None, stderr=None, close_fds=True)
 
 def workspace_append(i3):
     k = ['d', 'h', 't',  'n', 's']
