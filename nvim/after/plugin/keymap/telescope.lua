@@ -13,7 +13,7 @@ nnoremap("<leader>pg", function()
     require('telescope.builtin').git_files()
 end)
 nnoremap("<Leader>pf", function()
-    require('telescope.builtin').find_files({hidden = true})
+    require('telescope.builtin').find_files({no_ignore = true, hidden = true})
 end)
 
 nnoremap("<leader>pw", function()
