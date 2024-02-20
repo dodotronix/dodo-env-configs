@@ -24,7 +24,7 @@ antigen apply
 # language environment setup
 export LANG=en_US.UTF-8
 export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border'
-export EDITOR='nvim'
+# export EDITOR='nvim'
 
 # print actual path as title 
 case $TERM in
@@ -64,6 +64,8 @@ bindkey -s '^F' "tmux_sessionizer\n"
 # GLOBAL VARIABLES FOR NNN
 export NNN_PLUG='j:autojump;p:preview-tui;o:fzopen'
 export NNN_FIFO="/tmp/nnn.fifo"
+export EDITOR="nvim"
+export BROWSER="firefox"
 
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
