@@ -9,7 +9,8 @@ require('neorg').setup {
 		["core.dirman"] = {
 			config = { workspaces = {
 				personal = "~/projects/neorg_record/personal",
-			} } },
+			},
+            default_workspace = "personal"} },
 		},
 		-- Set custom logger settings
 		-- logger = { level = "trace" },

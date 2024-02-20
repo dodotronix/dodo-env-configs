@@ -10,7 +10,7 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-on_attach = function(bufnr)
+local on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
     local function map(mode, l, r, opts)
