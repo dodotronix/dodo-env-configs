@@ -1,13 +1,28 @@
 #!/usr/bin/env sh
 
+PROJECT_PATH="$HOME/projects"
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/projects ~/ -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find $PROJECT_PATH \
+        -mindepth 1 \
+        -maxdepth 1 \
+        -type d \
+        | fzf --bind=ctrl-a:print-query)
 fi
 
 if [[ -z $selected ]]; then
     exit 0
+fi
+
+REPOSITORY_BASE_NAME=$(basename $selected)
+NAME=$(echo $REPOSITORY_BASE_NAME | sed 's/\(.*\).git/\1/')
+TARGET="$PROJECT_PATH/$NAME"
+
+if [ ! -d $TARGET ]; then
+    git clone $selected $TARGET
+    selected=$TARGET
 fi
 
 selected_name=$(basename "$selected" | tr . _)
