@@ -18,7 +18,7 @@ color.active=on rgb021
 
 color.overdue=rgb540
 
-color.completed=on rgb040
+color.completed=rgb040
 color.deleted=on gray4
 
 color.blocking=on rgb102
