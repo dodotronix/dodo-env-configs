@@ -8,7 +8,6 @@ all:
 	@printf 'USAGE : make init            | install_all_packages | configure_all\n'
 	@printf '             tmux_config     | task_warrior_config  | zsh_config\n'
 	@printf '             neovim_config   | install_kicad        |  xfce_config\n'
-	@printf '             install_neomutt | \n'
 
 init:
 	@git submodule update --init --recursive
@@ -124,6 +123,3 @@ install_kicad:
 # 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
 # 		yay --noconfirm -S zoom --nocleanmenu --nodiffmenu; \
 # 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
-
-install_neomutt:
-	@yay --noconfirm -S pass imapfilter abook mutt-wizard-git neomutt-git --nocleanmenu --nodiffmenu
