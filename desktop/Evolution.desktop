@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Exec=env WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 evolution %U
+Name=Evolution
+Icon=/usr/share/icons/hicolor/48x48/apps/evolution-mail.png
+Comment=Custom definition for Evolution

@@ -19,7 +19,7 @@ install_all_packages: _check_software
 		sudo pacman --noconfirm -S  wget gajim \
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
-		xf86-input-synaptics xf86-input-libinput \
+		xf86-input-synaptics xf86-input-libinput evolution-ews \
 		gnome-keyring bluez bluez-utils taskwarrior-tui \
 		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g flatpak \
@@ -78,6 +78,11 @@ xfce_config:
 	@ln -vnsf $(SCRIPT_PATH)/Xresources $$HOME/.Xresources;
 	@[ -d $$HOME/.config/rofi ] && rm -r $$HOME/.config/rofi; \
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
+
+evolution_config:
+	@[ ! -d $$HOME/.config/evolution ] && mkdir -p $$HOME/.config/evolution; \
+		ln -vnsf $(SCRIPT_PATH)/evolution/* $$HOME/.config/evolution; \
+		ln -vnsf $(SCRIPT_PATH)/desktop/* $$HOME/.local/share/applications;
 
 task_warrior_config:
 	@[ ! -d $$HOME/.task ] && mkdir -p $$HOME/.task; \
