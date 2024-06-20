@@ -6,8 +6,8 @@ XORG_CONFD_DIR:=xorg.conf.d
 
 all:
 	@printf 'USAGE : make init            | install_all_packages | configure_all\n'
-	@printf '             tmux_config     | task_warrior_config  | zsh_config\n'
-	@printf '             neovim_config   | install_kicad        |  xfce_config\n'
+	@printf '             tmux_config     | zsh_config           | install_kicad\n'
+	@printf '             neovim_config   |  xfce_config\n'
 
 init:
 	@git submodule update --init --recursive
@@ -20,7 +20,7 @@ install_all_packages: _check_software
 		archlinux-keyring bitwarden python alsa-utils \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput evolution-ews \
-		gnome-keyring bluez bluez-utils taskwarrior-tui \
+		gnome-keyring bluez bluez-utils \
 		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g flatpak \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
@@ -28,7 +28,7 @@ install_all_packages: _check_software
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen xfdesktop xfwm4 flatpak \
-		thunar-volman xfce4-sensors-plugin neovim xclip zsh task fzf ntp;
+		thunar-volman xfce4-sensors-plugin neovim xclip zsh fzf ntp;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@which yay &> /dev/null || { cd /tmp; \
@@ -43,7 +43,7 @@ install_all_packages: _check_software
 	@yay --noconfirm -S discord spotify i3-gaps \
 		python-i3ipc xfce4-panel-profiles protonmail-bridge-bin \
 		xfce4-genmon-plugin pyright antigen-git \
-		lua-language-server-git svls python-pynvim ueberzug taskd-git \
+		lua-language-server-git svls python-pynvim ueberzug \ 
 		oh-my-zsh-git autojump nnn-icons pomodorino verible-bin \
 		xfce4-i3-workspaces-plugin-git yad-git tmux-git \
 		--nocleanmenu --nodiffmenu;	
@@ -51,7 +51,7 @@ install_all_packages: _check_software
 		&& git config --global commit.verbose true
 
 configure_all: _install_fonts tmux_config xfce_config \
-	task_warrior_config zsh_config neovim_config
+	zsh_config neovim_config
 	@sudo systemctl enable ntpd.service && sudo systemctl start ntpd.service;
 	
 _check_software:
@@ -83,12 +83,6 @@ evolution_config:
 	@[ ! -d $$HOME/.config/evolution ] && mkdir -p $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/evolution/* $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/desktop/* $$HOME/.local/share/applications;
-
-task_warrior_config:
-	@[ ! -d $$HOME/.task ] && mkdir -p $$HOME/.task; \
-		ln -vnsf $(SCRIPT_PATH)/taskwarrior/* $$HOME/.task; \
-		cp /usr/share/doc/timew/ext/on-modify.timewarrior ~/.task/hooks; cd ~/.task/hooks; \
-		chmod +x on-modify.timewarrior; echo "Download configuration script from taskwing web"
 
 zsh_config: 
 	@printf "make the zsh default shell\n"; \
