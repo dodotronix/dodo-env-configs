@@ -277,6 +277,7 @@
 
     # workspace containing todo list
     assign [title="(?i)todo-list"] workspace $ws_todo
+    assign [title="(?i)todoist"] workspace $ws_todo
     workspace $ws_todo output primary
 
     # workspace music 
