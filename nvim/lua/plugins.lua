@@ -48,8 +48,15 @@ require("lazy").setup({
     'p00f/nvim-ts-rainbow',
     { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
         dependencies = {'nvim-lua/plenary.nvim'}},
-    { "nvim-neorg/neorg", build=":Neorg sync-parsers"},
-
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 1000, -- We'd like this plugin to load first out of the rest
+        config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+    },
+    {
+        "nvim-neorg/neorg",
+        dependencies = { "luarocks.nvim" },
+    },
   {
       "jackMort/ChatGPT.nvim",
       event = "VeryLazy",
