@@ -17,7 +17,7 @@ init:
 install_all_packages: _check_software
 	@sudo pacman -Syu --noconfirm; \
 		sudo pacman --noconfirm -S  wget gajim \
-		archlinux-keyring bitwarden python alsa-utils \
+		archlinux-keyring bitwarden python alsa-utils htop \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput evolution-ews \
 		gnome-keyring bluez bluez-utils nnn i3-wm signal-desktop \
