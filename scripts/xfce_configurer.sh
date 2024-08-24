@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # NOTES if you want to see, what properties you set run following command
-#xfconf-query -c xfce4-panel -m
+#xfconf-query -c xfce4-panel -m -v
 
 xfconf-query -c xfce4-session -np /general/SessionName -t string -s Default 
 xfconf-query -c xfce4-session -np /sessions/Failsafe/Client0_Command -a -t string -s i3
@@ -22,7 +22,12 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 10 \
     -t int -s 11 
 
-xfconf-query -c xfce4-panel -np "/panels/panel-0/size" -t uint -s "45"
+# FULL HD PANEL
+xfconf-query -c xfce4-panel -np "/panels/panel-0/size" -t uint -s 45
+
+# 4K PANEL
+xfconf-query -c xfce4-panel -p "/panels/panel-0/size" -t uint -s 65
+
 xfconf-query -c xfce4-panel -np "/panels/panel-0/icon-size" -t uint -s 0 
 xfconf-query -c xfce4-panel -np "/panels/panel-0/position-locked" -t bool -s true 
 xfconf-query -c xfce4-panel -p /panels -a -t int -s 0
@@ -51,22 +56,6 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-4 \
     -t string -s 'separator'
 xfconf-query -c xfce4-panel -np /plugins/plugin-4/style \
     -t uint -s 0 
-
-# TASKWARRIOR GENMON
-xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
-    -t string -s 'genmon'
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/command \
-    -t string -s 'zsh -c .local/bin/task_indicator.sh;'
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/use-label \
-    -t bool -s 'true'
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/text \
-    -t string -s ''
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/font \
-    -t string -s 'Sans 16'
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/enable-single-row \
-    -t bool -s 'true'
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/update-period \
-    -t int -s 10000
 
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
@@ -97,6 +86,7 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-11 \
 xfconf-query -c xfce4-panel -np /plugins/plugin-11/icon-size \
     -t int -s 0
 
+# TODO check if xfce is running, otherwise omit this command
 xfce4-panel --restart 
 
 # I3-WORKSPACES
@@ -109,7 +99,6 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 2 \
     -t int -s 3 \
     -t int -s 4 \
-    -t int -s 5 \
     -t int -s 6 \
     -t int -s 7 \
     -t int -s 8 \
@@ -141,4 +130,50 @@ echo "$I3_WS_CSS" > $PANEL_DIR/i3-workspaces-7.rc
 xfconf-query -c xfce4-panel -np /plugins/plugin-7 \
     -t string -s 'i3-workspaces'
 
+# settings for whiskermenu 
+
+# FULL HD WHISKER MENU WIDTH
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/menu-width \
+    -t int -s 1780
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/menu-height \
+    -t int -s 500
+
+# 4K WHISKER MENU WIDTH 
+xfconf-query -c xfce4-panel -p /plugins/plugin-3/menu-width \
+    -t int -s 3600
+
+xfconf-query -c xfce4-panel -p /plugins/plugin-3/menu-height \
+    -t int -s 1000
+
+# GENERAL WHISKER MENU SETTINGS
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/launcher-show-description \
+    -t bool -s 'false' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/launcher-icon-size \
+    -t int -s 4
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/category-icon-size \
+    -t int -s 4
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/position-categories-horizontal \
+    -t bool -s 'true' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/position-profile-alternate \
+    -t bool -s 'true' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/button-single-row \
+    -t bool -s 'true' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/position-search-alternate \
+    -t bool -s 'true' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/stay-on-focus-out \
+    -t bool -s 'true' 
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-3/default-category \
+    -t int -s 1
+
+# TODO check if xfce is running, otherwise omit this command
 xfce4-panel --restart 
