@@ -29,6 +29,7 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/size" -t uint -s 45
 xfconf-query -c xfce4-panel -p "/panels/panel-0/size" -t uint -s 65
 
 xfconf-query -c xfce4-panel -np "/panels/panel-0/icon-size" -t uint -s 0 
+xfconf-query -c xfce4-panel -np "/panels/panel-0/length" -t uint -s 100 
 xfconf-query -c xfce4-panel -np "/panels/panel-0/position-locked" -t bool -s true 
 xfconf-query -c xfce4-panel -p /panels -a -t int -s 0
 
