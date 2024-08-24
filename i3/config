@@ -272,7 +272,6 @@
 
     # workspace containing mail client
     assign [class="(?i)Evolution"] workspace $ws_mail
-    assign [title="(?i)Neomutt"] workspace $ws_mail
     workspace $ws_mail output primary
 
     # workspace containing todo list
@@ -286,6 +285,7 @@
 
     # workspace gajim
     assign [class="(?i)gajim"] workspace $ws_chat
+    assign [class="(?i)signal"] workspace $ws_chat
     workspace $ws_chat output primary
 
 ## end assigns for different applications
