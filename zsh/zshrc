@@ -33,6 +33,10 @@ case $TERM in
         ;;
 esac
 
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Personal setup (There i put all device specific configs, which are for
 # example vivado license servers used at work ... these settings are excluded
 # from the git repo)  
