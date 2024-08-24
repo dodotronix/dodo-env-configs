@@ -4,7 +4,7 @@ require("lazy").setup({
   'EdenEast/nightfox.nvim',
   'nvim-lualine/lualine.nvim',
   'fedepujol/move.nvim',
-  'https://git.sr.ht/~soywod/himalaya-vim',
+  -- 'https://git.sr.ht/~soywod/himalaya-vim',
   'nvim-treesitter/nvim-treesitter',
   'nvim-treesitter/playground',
   'nvim-treesitter/nvim-treesitter-context',
@@ -70,6 +70,6 @@ require("lazy").setup({
 {'Exafunction/codeium.vim', event = 'BufEnter'},
 
   -- plugins development
-  {dir='/home/dodotronix/projects/neoSVmode'}
+  -- {dir='/home/dodotronix/projects/neoSVmode'}
   -- 'dodotronix/neoSVmode'
 })
