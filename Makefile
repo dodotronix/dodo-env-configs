@@ -79,6 +79,9 @@ xfce_config:
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
 evolution_config:
+	@echo "DISABLING WEBKIT SANDBOX IN EVOLUTION"
+	@sudo sed -i '/^Exec=evolution/ s/^\(Exec=\)/\1env WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 /' \
+		/usr/share/applications/org.gnome.Evolution.desktop 
 	@[ ! -d $$HOME/.config/evolution ] && mkdir -p $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/evolution/* $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/desktop/* $$HOME/.local/share/applications;
