@@ -11,8 +11,8 @@ all:
 
 init:
 	@git submodule update --init --recursive
-	@cd $$HOME/projects && [ -d "neorg_record" ] || \
-		git clone git@github.com:dodotronix/neorg_record.git;
+	@cd $$HOME/projects && [ -d "records" ] || \
+		git clone git@github.com:dodotronix/records.git;
 
 install_all_packages: _check_software
 	@sudo pacman -Syu --noconfirm; \

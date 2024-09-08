@@ -8,9 +8,9 @@ require('neorg').setup {
 		["core.qol.toc"] = {},
 		["core.dirman"] = {
 			config = { workspaces = {
-				personal = "~/projects/neorg_record/personal",
+				me = "~/projects/records/me",
 			},
-            default_workspace = "personal"} },
+            default_workspace = "me"} },
 		},
 		-- Set custom logger settings
 		-- logger = { level = "trace" },

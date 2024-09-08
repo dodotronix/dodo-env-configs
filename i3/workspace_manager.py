@@ -25,7 +25,7 @@ def open_todo(i3):
         i3.command('workspace "{}"'.format(ws_name))
         return 0
     subprocess.Popen(['alacritty', '--title', '"todo-list"', '-e', 
-                      'nvim', '-c', 'Neorg workspace personal'], 
+                      'nvim', '-c', 'Neorg workspace me'], 
                      stdin=None, stdout=None, stderr=None, close_fds=True)
     i3.command('workspace "{}"'.format(ws_name))
 
