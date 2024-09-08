@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=RecPush
+Comment=push my records to git
+Exec=zsh -c "~/projects/dodo-env-configs/scripts/RecPush.sh"
+Icon=media-record
+Path=
+Terminal=true
+StartupNotify=false

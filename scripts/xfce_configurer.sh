@@ -58,6 +58,14 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-4 \
 xfconf-query -c xfce4-panel -np /plugins/plugin-4/style \
     -t uint -s 0 
 
+# Button to push records to Git
+xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
+    -t string -s 'launcher'
+
+
+xfconf-query -c xfce4-panel -np /plugins/plugin-5/items -a \
+    -t string -s $HOME'/.local/share/applications/RecPush.desktop'
+
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
     -t string -s 'separator'
@@ -100,6 +108,7 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 2 \
     -t int -s 3 \
     -t int -s 4 \
+    -t int -s 5 \
     -t int -s 6 \
     -t int -s 7 \
     -t int -s 8 \
