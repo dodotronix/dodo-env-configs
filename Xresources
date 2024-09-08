@@ -1,6 +1,3 @@
-
-#include "/home/dodotronix/.term_scheme/iTerm2-Color-Schemes/xrdb/Solarized Dark Higher Contrast.xrdb"
-
 Xcursor.size: 32
 Xft.dpi: 220 
 
@@ -48,4 +45,3 @@ URxvt*scrollTtyKeypress: true
 *.colorUL:     Underline_Color
 *.foreground:  Foreground_Color
 *.background:  Background_Color
-*.cursorColor: Cursor_Color

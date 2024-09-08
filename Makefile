@@ -17,10 +17,10 @@ init:
 install_all_packages: _check_software
 	@sudo pacman -Syu --noconfirm; \
 		sudo pacman --noconfirm -S  wget gajim \
-		archlinux-keyring bitwarden python alsa-utils \
+		archlinux-keyring bitwarden python alsa-utils htop \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput evolution-ews \
-		gnome-keyring bluez bluez-utils \
+		gnome-keyring bluez bluez-utils nnn i3-wm signal-desktop \
 		pulseaudio pulseaudio-bluetooth blueberry lazygit timew \
 		cups network-manager-applet pulseaudio-alsa ntfs-3g flatpak \
 		mtpfs gvfs-gphoto2 gvfs-mtp man-db xfce4-mailwatch-plugin \
@@ -28,7 +28,7 @@ install_all_packages: _check_software
 		pavucontrol alacritty usbutils xfce4-panel xfce4-power-manager \
 		xfce4-whiskermenu-plugin dmenu xfce4-session ttf-font-awesome \
 		xfce4-settings light-locker thunar nitrogen xfdesktop xfwm4 flatpak \
-		thunar-volman xfce4-sensors-plugin neovim xclip zsh fzf ntp;
+		thunar-volman xfce4-sensors-plugin neovim xclip zsh fzf ntp glib2-devel;
 	@sudo systemctl enable bluetooth.service; pulseaudio -k; pulseaudio --start;
 	@printf "[INF]: Installing yay for simple AUR downloads\n"
 	@which yay &> /dev/null || { cd /tmp; \
@@ -40,19 +40,18 @@ install_all_packages: _check_software
 		$(XORG_PATH)/$(XORG_CONFD_DIR);
 	@printf "[INF]: Installing packages from AUR\n"
 # xfce4-i3-workspaces-plugin-git will be loaded from home 
-	@yay --noconfirm -S discord spotify i3-gaps \
+	@yay --noconfirm -S discord spotify \
 		python-i3ipc xfce4-panel-profiles protonmail-bridge-bin \
 		xfce4-genmon-plugin pyright antigen-git \
 		lua-language-server-git svls python-pynvim ueberzug \
-		oh-my-zsh-git autojump nnn-icons pomodorino verible-bin \
-		xfce4-i3-workspaces-plugin-git yad-git tmux-git todoist-appimage \
-		--nocleanmenu --nodiffmenu;	
+		oh-my-zsh-git autojump pomodorino verible-bin \
+		xfce4-i3-workspaces-plugin-git yad-git tmux-git todoist-appimage
 	@printf "[INF]: git activated verbose mode.\n" \
 		&& git config --global commit.verbose true
 
-configure_all: _install_fonts tmux_config xfce_config \
-	zsh_config neovim_config
+configure_all: _install_fonts tmux_config zsh_config neovim_config xfce_config
 	@sudo systemctl enable ntpd.service && sudo systemctl start ntpd.service;
+	@sudo systemctl enable lightdm.service && sudo systemctl start lightdm.service;
 	
 _check_software:
 	@which sudo &> /dev/null || { \
@@ -61,8 +60,8 @@ _check_software:
 		printf 'ERR: "lsb-release" is probably not installed"\n' >&2; false; }
 
 tmux_config:
-	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux; \
-		[ ! -d $$HOME/.local/bin ] && mkdir $$HOME/.local/bin; \
+	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux;
+	@[ ! -d $$HOME/.local/bin ] && mkdir $$HOME/.local/bin; \
 		ln -vnsf $(SCRIPT_PATH)/scripts/* $$HOME/.local/bin/
 
 # TODO remove all xfce cached dirs
@@ -80,13 +79,18 @@ xfce_config:
 		ln -vnsf $(SCRIPT_PATH)/rofi $$HOME/.config;
 
 evolution_config:
+	@echo "DISABLING WEBKIT SANDBOX IN EVOLUTION"
+	@sudo sed -i '/^Exec=evolution/ s/^\(Exec=\)/\1env WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 /' \
+		/usr/share/applications/org.gnome.Evolution.desktop 
 	@[ ! -d $$HOME/.config/evolution ] && mkdir -p $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/evolution/* $$HOME/.config/evolution; \
 		ln -vnsf $(SCRIPT_PATH)/desktop/* $$HOME/.local/share/applications;
 
+# chsh -s $$(which zsh);
+# sudo sed -i 's#/bin/sh#/bin/bash#g' /etc/passwd
+
 zsh_config: 
 	@printf "make the zsh default shell\n"; \
-		sudo chsh -s $$(which zsh); \
 		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
 		[ ! -f $$HOME/.personal_cfg.zsh ] && { touch $$HOME/.personal_cfg.zsh; } || { true; } 
 
@@ -100,12 +104,12 @@ _install_fonts:
 
 neovim_config:
 	@ln -vnsf $(SCRIPT_PATH)/nvim $$HOME/.config
-	@[ -d ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins ] && \
-		{ rm -rf ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins; } || { true; }; \
-		curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh;
 
 install_kicad:
 	@yay --noconfirm -S kicad-git kicad-libraries-git --nocleanmenu --nodiffmenu;
+
+alacritty_config:
+	@ln -vnsf $(SCRIPT_PATH)/alacritty $$HOME/.config
 
 # install_flatcam:
 # 	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
