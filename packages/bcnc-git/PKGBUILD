@@ -1,0 +1,25 @@
+_gitrepo='bCNC'
+pkgname=bcnc
+pkgver=1.0
+pkgrel=1
+pkgdesc="GRBL CNC command sender, autoleveler and g-code editor"
+arch=('x86_64')
+url="https://github.com/vlachoudis/bCNC"
+license=('GPL3')
+makedepends=('python' 'python-svgelements' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-setuptools' 'python-wheel')
+provides=(bcnc)
+source=("git+https://github.com/vlachoudis/$_gitrepo.git" "bcnc.desktop")
+md5sums=('SKIP' 'SKIP')
+
+build() {
+  cd "$srcdir/$_gitrepo"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "$srcdir/$_gitrepo"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+
+    install -D -m644 "$srcdir/bcnc.desktop" "${pkgdir}/usr/share/applications/bcnc.desktop"
+    install -D -m644 "$srcdir/$_gitrepo/$_gitrepo/bCNC.png" "${pkgdir}/usr/share/pixmaps/bcnc.png"
+}
