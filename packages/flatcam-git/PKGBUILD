@@ -1,0 +1,78 @@
+# Maintainer: Jake <aur@ja-ke.tech>
+
+pkgname=flatcam
+pkgver=r4508.21b27081
+pkgrel=1
+pkgdesc="Generates CNC gcode from 2D PCB files (Gerber/Excellon/SVG)"
+arch=('any')
+url="http://flatcam.org"
+license=('MIT')
+depends=('tk'
+        'cython'
+        'python-dateutil'
+        'python-simplejson'
+        'python-pyqt5'
+        'python-opengl'
+        'python-kiwisolver'
+        'python-scipy'
+#         'python-numpy'
+        'python-matplotlib'
+        'python-shapely'
+        'python-rtree'
+        'python-svg.path'
+        'python-reportlab'
+        'python-svglib'
+        'python-vispy'
+        'python-rasterio'
+        'python-ezdxf'
+        'python-dill'
+        'python-freetype-py'
+        'python-fonttools'
+        'python-or-tools'
+        'python-lxml'
+        'python-cycler'
+        'python-qrcode'
+        'hicolor-icon-theme'
+)
+makedepends=('git')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+source=("git+https://github.com/dodotronix/$pkgname.git#branch=mstanciu_Beta_8.995"
+        "$pkgname.desktop"
+        "${pkgname}.xml"
+        "${pkgname}.sh")
+md5sums=('SKIP'
+         '8a0be1fc39b87116cba4162dc1257e2e'
+         'e4a7f457350aa2e1c62cbe43f3b23e90'
+         'SKIP')
+
+prepare() {
+	cd "$srcdir/${pkgname}"
+	git checkout 
+}
+pkgver() {
+	cd "$srcdir/${pkgname}"
+	# Git, no tags available
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/${pkgname}"
+	python -O -m py_compile *.py
+}
+
+
+package() {
+	mkdir -p "$pkgdir/usr/bin/"
+	ln -s "/opt/${pkgname}/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+	install -D -m644 "${pkgname}.desktop" "$pkgdir/usr/share/applications/${pkgname}.desktop"
+	install -D -m644 "${pkgname}.xml" -t "$pkgdir/usr/share/mime/packages/"
+	install -D -m755 "${pkgname}.sh" "$pkgdir/usr/bin/${pkgname}"
+	cd "$srcdir/${pkgname}"
+	install -D -m644 "assets/linux/icon.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/${pkgname}.png"
+	install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+	rm -rf *.sh doc tests
+	mkdir -p "${pkgdir}/opt/${pkgname}"
+	cp -r * "${pkgdir}/opt/${pkgname}"
+}
