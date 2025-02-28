@@ -114,12 +114,12 @@ install_kicad:
 
 configure_kicad: 
 	@[ ! -d $$HOME/projects/dodo_klibs ] && { git clone git@github.com:dodotronix/dodo_klibs.git $$HOME/projects/dodo_klibs; } || { true; }
-	@[ -d $$HOME/.local/share/kicad/8.0/symbols ] && rm -r $$HOME/.local/share/kicad/8.0/symbols;
-	@[ -d $$HOME/.local/share/kicad/8.0/footprints ] && rm -r $$HOME/.local/share/kicad/8.0/footprints;
-	@[ -d $$HOME/.local/share/kicad/8.0/3dmodels ] && rm -r $$HOME/.local/share/kicad/8.0/3dmodels;
-	@ln -vnsf $$HOME/projects/dodo_klibs/symbols $$HOME/.local/share/kicad/8.0/
-	@ln -vnsf $$HOME/projects/dodo_klibs/footprints $$HOME/.local/share/kicad/8.0/
-	@ln -vnsf $$HOME/projects/dodo_klibs/3dmodels $$HOME/.local/share/kicad/8.0/
+	@[ -d $$HOME/.local/share/kicad/9.99/symbols ] && rm -r $$HOME/.local/share/kicad/9.99/symbols;
+	@[ -d $$HOME/.local/share/kicad/9.99/footprints ] && rm -r $$HOME/.local/share/kicad/9.99/footprints;
+	@[ -d $$HOME/.local/share/kicad/9.99/3dmodels ] && rm -r $$HOME/.local/share/kicad/9.99/3dmodels;
+	@ln -vnsf $$HOME/projects/dodo_klibs/symbols $$HOME/.local/share/kicad/9.99/
+	@ln -vnsf $$HOME/projects/dodo_klibs/footprints $$HOME/.local/share/kicad/9.99/
+	@ln -vnsf $$HOME/projects/dodo_klibs/3dmodels $$HOME/.local/share/kicad/9.99/
 
 alacritty_config:
 	@ln -vnsf $(SCRIPT_PATH)/alacritty $$HOME/.config
