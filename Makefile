@@ -56,8 +56,6 @@ configure_all: _install_fonts tmux_config zsh_config neovim_config xfce_config
 _check_software:
 	@which sudo &> /dev/null || { \
 		printf 'ERR: "sudo" is probably not installed"\n' >&2; false; }
-	@which lsb_release &> /dev/null || { \
-		printf 'ERR: "lsb-release" is probably not installed"\n' >&2; false; }
 
 tmux_config:
 	@ln -vnsf $(SCRIPT_PATH)/tmux/ $$HOME/.config/tmux;
