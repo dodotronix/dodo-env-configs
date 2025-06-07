@@ -1,7 +1,7 @@
 require("mason").setup()
 local mason_lspconfig = require('mason-lspconfig')
 
-local servers = {verible = {}, clangd = {}}
+local servers = {verible = {}, clangd = {}, lua_ls = {}, pyright = {}}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -83,20 +83,18 @@ local on_attach = function(client, bufnr)
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
 end
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-
-}
-
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                settings = servers[server_name],
+                filetypes = (servers[server_name] or {}).filetypes,
+            }
+        end,
+    }
 }
 
 require("neodev").setup()
