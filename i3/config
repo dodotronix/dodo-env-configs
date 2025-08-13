@@ -286,6 +286,7 @@
     # workspace gajim
     assign [class="(?i)gajim"] workspace $ws_chat
     assign [class="(?i)signal"] workspace $ws_chat
+    assign [class="(?i)slack"] workspace $ws_chat
     workspace $ws_chat output primary
 
 ## end assigns for different applications
