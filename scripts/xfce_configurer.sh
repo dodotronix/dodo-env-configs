@@ -62,9 +62,8 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-4/style \
 xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
     -t string -s 'launcher'
 
-
 xfconf-query -c xfce4-panel -np /plugins/plugin-5/items -a \
-    -t string -s $HOME'/project/dodo-env-configs/desktop/RecPush.desktop'
+    -t string -s $HOME/projects/dodo-env-configs/desktop/RecPush.desktop
 
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
