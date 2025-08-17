@@ -64,7 +64,7 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
 
 
 xfconf-query -c xfce4-panel -np /plugins/plugin-5/items -a \
-    -t string -s $HOME'/.local/share/applications/RecPush.desktop'
+    -t string -s $HOME'/project/dodo-env-configs/desktop/RecPush.desktop'
 
 # SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
