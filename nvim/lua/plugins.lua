@@ -4,9 +4,17 @@ require("lazy").setup({
     'EdenEast/nightfox.nvim',
     'nvim-lualine/lualine.nvim',
     'fedepujol/move.nvim',
-    'nvim-treesitter/nvim-treesitter',
-    'nvim-treesitter/playground',
-    'nvim-treesitter/nvim-treesitter-context',
+
+    {
+        'nvim-treesitter/nvim-treesitter',
+        branch = 'main',
+        build = ':TSUpdate',
+    },
+    {
+        'nvim-treesitter/nvim-treesitter-context',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    },
+
     'luukvbaal/nnn.nvim',
     'lewis6991/gitsigns.nvim',
     'onsails/lspkind.nvim',
