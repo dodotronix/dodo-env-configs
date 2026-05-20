@@ -16,7 +16,7 @@ init:
 
 install_all_packages: _check_software
 	@sudo pacman -Syu --noconfirm; \
-		sudo pacman --noconfirm -S  wget gajim npm \
+		sudo pacman --noconfirm -S  wget gajim npm ripgrep \
 		archlinux-keyring bitwarden python alsa-utils htop \
 		xorg-server xorg-xinput xorg-xmodmap xorg-xev xorg-setxkbmap \
 		xf86-input-synaptics xf86-input-libinput evolution-ews \
@@ -106,7 +106,7 @@ zsh_config:
 		ln -vnsf $(SCRIPT_PATH)/zsh/zshrc $$HOME/.zshrc; \
 		[ ! -f $$HOME/.personal_cfg.zsh ] && { touch $$HOME/.personal_cfg.zsh; } || { true; } 
 
-_install_fonts:
+install_fonts:
 	@mkdir $(SCRIPT_PATH)/fonts; \
 		sudo ln -vnsf $(SCRIPT_PATH)/fonts /usr/local/share; \
 		wget -N -P $(SCRIPT_PATH)/fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf; \
@@ -147,3 +147,4 @@ alacritty_config:
 # 	@yay --noconfirm -S mattermost-desktop --nocleanmenu --nodiffmenu; \
 # 		yay --noconfirm -S zoom --nocleanmenu --nodiffmenu; \
 # 		sudo pacman --noconfirm -S tigervnc remmina libvncserver
+
