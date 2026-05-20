@@ -34,7 +34,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.completeopt={"menu", "menuone", "noselect"}
-vim.lsp.set_log_level("debug")
+vim.lsp.log.set_level("debug")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
