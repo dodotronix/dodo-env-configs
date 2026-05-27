@@ -1,5 +1,5 @@
 require("lazy").setup({
-    --'folke/which-key.nvim',
+    'folke/which-key.nvim',
     { 'folke/neoconf.nvim', cmd = 'Neoconf' },
     'EdenEast/nightfox.nvim',
     'nvim-lualine/lualine.nvim',
@@ -14,7 +14,17 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter-context',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
     },
-
+    {
+        'nvim-orgmode/orgmode',
+        event = 'VeryLazy',
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+            'nvim-orgmode/telescope-orgmode.nvim',
+            'nvim-orgmode/org-bullets.nvim',
+            'lukas-reineke/headlines.nvim',
+            'danilshvalov/org-modern.nvim'
+        }
+    },
     'luukvbaal/nnn.nvim',
     'lewis6991/gitsigns.nvim',
     'onsails/lspkind.nvim',
@@ -41,21 +51,19 @@ require("lazy").setup({
             'mfussenegger/nvim-dap',
         }
     },
-    {
-        "nvim-neorg/neorg",
-        lazy = false,
-        version = "*",
-    },
   'ThePrimeagen/vim-be-good',
   'b3nj5m1n/kommentary',
   'kdheepak/lazygit.nvim',
 
-  { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        dependencies = {'nvim-lua/plenary.nvim'}},
+  { 'nvim-telescope/telescope.nvim',
+  branch = "master",
+  -- tag = '0.1.4',
+  dependencies = {'nvim-lua/plenary.nvim'}
+  },
 
-    -- {'Exafunction/codeium.vim', event = 'BufEnter'},
+  -- {'Exafunction/codeium.vim', event = 'BufEnter'},
 
-    -- plugins development
-    -- {dir='/home/dodotronix/projects/neoSVmode'}
-    -- 'dodotronix/neoSVmode'
+  -- plugins development
+  -- {dir='/home/dodotronix/projects/neoSVmode'}
+  -- 'dodotronix/neoSVmode'
 })
