@@ -31,7 +31,7 @@ PACMAN_CONFIRM := $(if $(filter 1,$(NOCONFIRM)),--noconfirm,)
 	configure_all install_fonts tmux_config zsh_config neovim_config \
 	xfce_config update_applications evolution_config install_kicad \
 	configure_kicad alacritty_config \
-	i3_workspaces _i3_workspaces_css _check_software _check_lists _install_yay _mark_explicit
+	clean_caches i3_workspaces _i3_workspaces_css _check_software _check_lists _install_yay _mark_explicit
 
 # Full setup, run in order: clone repos -> sync packages -> configure
 all:
@@ -47,7 +47,7 @@ help:
 	@printf '             sync_packages   | prune_packages       | pkg_diff\n'
 	@printf '             tmux_config     | zsh_config           | install_kicad\n'
 	@printf '             neovim_config   | xfce_config\n'
-	@printf '             i3_workspaces   | help\n'
+	@printf '             clean_caches    | i3_workspaces        | help\n'
 	@printf '\n        NOCONFIRM=1 make     (prune without asking)\n'
 
 init:
@@ -153,6 +153,15 @@ i3_workspaces:
 _i3_workspaces_css:
 	@mkdir -p $$HOME/.config/xfce4/panel; \
 		ln -vnsf $(I3WS_DIR)/i3-workspaces.css $$HOME/.config/xfce4/panel/i3-workspaces.css
+
+# Free space: old package versions, packages/AUR builds of uninstalled
+# packages, and folders that uninstalled apps left in $HOME (asks first)
+clean_caches:
+	@printf '[INF]: Pacman cache: keeping the last 2 versions of installed packages\n'
+	@sudo paccache -rk2
+	@printf '[INF]: Pacman + AUR caches of uninstalled packages\n'
+	@yay -Sc
+	@$(SCRIPT_PATH)/scripts/clean_home
 
 install_kicad:
 	@yay -S --needed --noconfirm $(KICAD_PKGS)

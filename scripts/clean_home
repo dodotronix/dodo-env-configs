@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# Find (and after asking, delete) folders that applications left in the home
+# directory after they were uninstalled:
+#   ~/.cache  ~/.config  ~/.local/share  ~/.local/state  ~/.var/app (flatpak)
+#
+# A folder counts as "in use" when its name (case-insensitive) matches
+#   - an installed package (also with -git/-bin/-desktop/... dropped,
+#     or as a prefix: "xfce4" -> xfce4-panel),
+#   - a command in /usr/bin,
+#   - an installed flatpak app,
+#   - or a line in home-keep.txt (repo root): "<folder>" keeps it always,
+#     "<folder> <package>" keeps it while <package> is installed.
+# Symlinks are skipped (they're configs managed by this repo).
+#
+#   clean_home        list the leftovers, then ask before deleting
+#   clean_home -n     only list them
+
+set -euo pipefail
+
+KEEP_FILE=$(dirname "$(realpath "$0")")/../home-keep.txt
+DIRS=("$HOME/.cache" "$HOME/.config" "$HOME/.local/share" "$HOME/.local/state")
+dry_run=0; [ "${1:-}" = -n ] && dry_run=1
+
+declare -A known
+add() { known[${1,,}]=1; }
+
+while read -r p; do
+    add "$p"
+    for suffix in -git -bin -desktop -appimage -nightly -beta; do
+        [[ $p == *"$suffix" ]] && add "${p%"$suffix"}"
+    done
+done < <(pacman -Qq)
+for f in /usr/bin/*; do add "${f##*/}"; done
+
+# flatpak data lives in ~/.var/app/<app id>
+declare -A flatpaks
+if command -v flatpak &> /dev/null; then
+    while read -r id; do [ -n "$id" ] && flatpaks[$id]=1; done \
+        < <(flatpak list --app --columns=application 2> /dev/null)
+fi
+
+if [ -f "$KEEP_FILE" ]; then
+    while read -r dir pkg _; do
+        [[ -z $dir || $dir == \#* ]] && continue
+        if [ -z "${pkg:-}" ] || pacman -Q "$pkg" &> /dev/null; then add "$dir"; fi
+    done < "$KEEP_FILE"
+fi
+
+pkgs=$(pacman -Qq)
+in_use() {
+    local n=${1,,}
+    n=${n#.}
+    [ -n "${known[$n]:-}" ] && return 0
+    # reverse DNS names: org.gnome.Evolution -> evolution
+    [[ $n == *.* ]] && [ -n "${known[${n##*.}]:-}" ] && return 0
+    # prefix of an installed package: xfce4 -> xfce4-panel
+    [ ${#n} -ge 3 ] && grep -qi -- "^$n-" <<< "$pkgs" && return 0
+    return 1
+}
+
+leftovers=()
+for base in "${DIRS[@]}"; do
+    [ -d "$base" ] || continue
+    for d in "$base"/*/ "$base"/.*/; do
+        d=${d%/}
+        [ -d "$d" ] && [ ! -L "$d" ] || continue
+        name=${d##*/}
+        [[ $name == . || $name == .. ]] && continue
+        in_use "$name" || leftovers+=("$d")
+    done
+done
+if [ -d "$HOME/.var/app" ]; then
+    for d in "$HOME"/.var/app/*/; do
+        d=${d%/}
+        [ -d "$d" ] && [ -z "${flatpaks[${d##*/}]:-}" ] && leftovers+=("$d")
+    done
+fi
+
+if [ ${#leftovers[@]} -eq 0 ]; then
+    printf '[INF]: No leftovers found\n'
+    exit 0
+fi
+
+printf '[INF]: Folders of applications that are not installed:\n'
+du -sh "${leftovers[@]}" 2> /dev/null | sed 's/^/  /'
+printf '\n  To keep one, add its folder name to %s\n' "$(realpath -m "$KEEP_FILE")"
+
+[ $dry_run = 1 ] && exit 0
+read -rp 'Delete all of them? [y/N] ' answer
+[[ $answer == [yY] ]] || { printf '[INF]: Nothing deleted\n'; exit 0; }
+rm -rf -- "${leftovers[@]}"
+printf '[INF]: Deleted %d folders\n' ${#leftovers[@]}

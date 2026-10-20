@@ -1,0 +1,75 @@
+# Folders in ~/.cache ~/.config ~/.local/share ~/.local/state that
+# scripts/clean_home must never delete.
+#   <folder>            keep always
+#   <folder> <package>  keep while <package> is installed (folder named differently)
+
+# desktop / system
+autostart
+systemd
+environment.d
+fontconfig
+fonts
+icons
+themes
+applications
+mime
+menus
+desktop-directories
+Trash
+keyrings
+gtk-2.0
+gtk-3.0
+gtk-4.0
+dconf
+pulse
+gvfs-metadata
+sessions
+thumbnails
+recently-used.xbel
+mesa_shader_cache
+nvidia
+qtshadercache
+xfce4-session xfce4-session
+Thunar thunar
+xfce4 xfce4-panel
+libfm
+user-places.xbel
+
+# shells / dev tools
+zsh
+zsh-autosuggestions
+oh-my-zsh oh-my-zsh-git
+antigen antigen-git
+autojump autojump
+nvim neovim
+pip python
+pypoetry python
+mypy python
+python python
+node npm
+npm npm
+pnpm npm
+go go
+cargo rust
+rustup rustup
+docker docker
+lazygit lazygit
+gh github-cli
+git git
+less less
+
+# applications
+mozilla firefox
+evolution evolution
+gnome-keyring gnome-keyring
+Signal signal-desktop
+discord discord
+spotify spotify
+Bitwarden bitwarden
+protonmail protonmail-bridge-bin
+gajim gajim
+kicad kicad-git
+timewarrior timew
+
+# claude code
+claude
