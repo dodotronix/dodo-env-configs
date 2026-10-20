@@ -1,0 +1,91 @@
+# system / tools
+archlinux-keyring
+wget
+npm
+ripgrep
+python
+htop
+usbutils
+man-db
+llvm
+clang
+glib2-devel
+ntp
+ntfs-3g
+mtpfs
+gvfs-gphoto2
+gvfs-mtp
+flatpak
+firewalld
+ipset
+cups
+lazygit
+timew
+nnn
+fzf
+pacman-contrib
+rclone
+
+# containers
+docker
+docker-buildx
+
+# shell / editor / terminal
+zsh
+neovim
+alacritty
+
+# audio / bluetooth
+alsa-utils
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pavucontrol
+bluez
+bluez-utils
+
+# graphics (Intel/AMD; for NVIDIA use nvidia or nvidia-open)
+mesa
+
+# X11 desktop (i3 + xfce)
+xorg-server
+xorg-xinput
+xorg-xmodmap
+xorg-xev
+xorg-setxkbmap
+xf86-input-libinput
+xf86-input-synaptics
+xclip
+i3-wm
+rofi
+dmenu
+light-locker
+xfwm4
+xfdesktop
+xfce4-session
+xfce4-settings
+xfce4-panel
+xfce4-power-manager
+xfce4-whiskermenu-plugin
+xfce4-mailwatch-plugin
+xfce4-sensors-plugin
+
+# login
+lightdm
+lightdm-gtk-greeter
+
+# desktop bits
+network-manager-applet
+thunar
+thunar-volman
+woff2-font-awesome
+
+# apps
+firefox
+gajim
+signal-desktop
+bitwarden
+evolution-ews
+gnome-keyring
+yad

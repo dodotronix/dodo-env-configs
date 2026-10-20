@@ -1,0 +1,16 @@
+# Core packages from AUR
+yay
+discord
+spotify
+python-i3ipc
+protonmail-bridge-bin
+antigen-git
+python-pynvim
+ueberzugpp
+oh-my-zsh-git
+autojump
+verible-bin
+tmux-git
+xfce4-panel-profiles
+xfce4-genmon-plugin
+i3ipc-glib-git

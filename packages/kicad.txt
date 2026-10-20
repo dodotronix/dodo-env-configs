@@ -1,0 +1,3 @@
+# Installed only by `make install_kicad`, but protected from pruning
+kicad-git
+kicad-libraries-git
