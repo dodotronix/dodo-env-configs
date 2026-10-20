@@ -97,7 +97,8 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 10 \
     -t int -s 11 
 
-# i3-workspaces are configured using css file
+# i3-workspaces colors below are only a fallback: the look comes from
+# packages/xfce4-i3-workspaces-plugin-dodo-git/i3-workspaces.css (see 0002 patch)
 # so it has to be generated here
 I3_WS_CSS="use_css=false
 normal_color=rgb(222,221,218)

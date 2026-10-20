@@ -1,0 +1,4 @@
+# Built from packages/<name>/PKGBUILD by their own make targets
+# (xfce4-i3-workspaces-plugin-dodo-git -> make i3_workspaces); listed here so
+# pruning keeps them
+xfce4-i3-workspaces-plugin-dodo-git

@@ -1,0 +1,44 @@
+/* xfce4-i3-workspaces-plugin style, loaded by 0002-Load-CSS-from-file.patch.
+ * Linked to ~/.config/xfce4/panel/i3-workspaces.css, apply with:
+ *   xfce4-panel --restart
+ * GTK3 CSS: https://docs.gtk.org/gtk3/css-properties.html */
+
+button.workspace {
+  background-color: rgba(255, 255, 255, 0.05);
+  background-image: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  box-shadow: none;
+  color: rgba(222, 221, 218, 0.75);
+  margin: 6px 3px;
+  padding: 0 10px;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+button.workspace:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* focused on another monitor */
+button.workspace.visible {
+  border-color: rgba(192, 97, 203, 0.45);
+}
+
+button.workspace.focused {
+  background-color: rgba(255, 163, 72, 0.16);
+  border-color: rgba(255, 163, 72, 0.55);
+  color: rgb(255, 190, 125);
+  font-weight: bold;
+}
+
+button.workspace.urgent {
+  background-color: rgba(224, 27, 36, 0.22);
+  border-color: rgba(224, 27, 36, 0.65);
+  color: rgb(255, 160, 160);
+}
+
+.binding-mode {
+  color: rgb(51, 209, 122);
+  font-weight: bold;
+}

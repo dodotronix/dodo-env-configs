@@ -1,0 +1,30 @@
+From 868065e1a4fd20895a1f977ec125e96c4adb1984 Mon Sep 17 00:00:00 2001
+From: me <me@local>
+Date: Tue, 20 Oct 2026 13:26:53 +0000
+Subject: [PATCH 2/2] Load CSS from ~/.config/xfce4/panel/i3-workspaces.css if
+ it exists
+
+---
+ panel-plugin/i3w-plugin.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/panel-plugin/i3w-plugin.c b/panel-plugin/i3w-plugin.c
+index 8e58cd2..6919c30 100644
+--- a/panel-plugin/i3w-plugin.c
++++ b/panel-plugin/i3w-plugin.c
+@@ -139,6 +139,15 @@ static void
+ init_css(i3WorkspacesPlugin *i3_workspaces) {
+     i3WorkspacesConfig *config = i3_workspaces->config;
+ 
++    /* a CSS file in the user config dir overrides the plugin settings */
++    gchar *css_file = g_build_filename(g_get_user_config_dir(),
++            "xfce4", "panel", "i3-workspaces.css", NULL);
++    gboolean has_css_file = g_file_test(css_file, G_FILE_TEST_EXISTS);
++    if (has_css_file)
++        gtk_css_provider_load_from_path(i3_workspaces->css_provider, css_file, NULL);
++    g_free(css_file);
++    if (has_css_file) return;
++
+     if (config->use_css) {
+         gtk_css_provider_load_from_data(
+             i3_workspaces->css_provider, i3_workspaces->config->css, -1, NULL);

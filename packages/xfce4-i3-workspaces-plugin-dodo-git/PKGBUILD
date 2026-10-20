@@ -1,0 +1,47 @@
+# Maintainer: me
+# AUR xfce4-i3-workspaces-plugin-git + every *.patch in this directory (applied
+# in name order). Own pkgname so yay -Syu doesn't replace it with the unpatched
+# AUR package. Build/install with `make i3_workspaces`.
+
+_gitrepo='xfce4-i3-workspaces-plugin'
+_patches=(*.patch)
+pkgname='xfce4-i3-workspaces-plugin-dodo-git'
+pkgver=1.4.2.r5.gd7c2d97
+pkgrel=1
+pkgdesc="Workspace switcher plugin for xfce4-panel for the i3 window manager (patched)"
+arch=('x86_64')
+url="https://github.com/denesb/xfce4-i3-workspaces-plugin"
+license=('GPL3')
+depends=('xfce4-panel' 'i3ipc-glib-git')
+makedepends=('git' 'autoconf' 'automake' 'intltool' 'xfce4-dev-tools')
+provides=('xfce4-i3-workspaces-plugin')
+conflicts=('xfce4-i3-workspaces-plugin' 'xfce4-i3-workspaces-plugin-git')
+source=("git+https://github.com/denesb/$_gitrepo.git" "${_patches[@]}")
+# local patches are edited all the time -> no checksums
+sha256sums=('SKIP' "${_patches[@]/*/SKIP}")
+
+pkgver() {
+  cd "$srcdir/$_gitrepo"
+  git describe --long --tags | sed -r 's/([^-]*-g)/r\1/;s/-/./g'
+}
+
+prepare() {
+  cd "$srcdir/$_gitrepo"
+  local p
+  for p in "${_patches[@]}"; do
+    msg2 "Applying $p"
+    patch -Np1 -i "$srcdir/$p"
+  done
+}
+
+build() {
+  cd "$srcdir/$_gitrepo"
+  ACLOCAL_PATH="/usr/share/gettext/m4:/usr/share/aclocal" ./autogen.sh --prefix=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitrepo"
+  make DESTDIR="$pkgdir" install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}

@@ -31,7 +31,7 @@ PACMAN_CONFIRM := $(if $(filter 1,$(NOCONFIRM)),--noconfirm,)
 	configure_all install_fonts tmux_config zsh_config neovim_config \
 	xfce_config update_applications evolution_config install_kicad \
 	configure_kicad alacritty_config \
-	_check_software _check_lists _install_yay _mark_explicit
+	i3_workspaces _i3_workspaces_css _check_software _check_lists _install_yay _mark_explicit
 
 # Full setup, run in order: clone repos -> sync packages -> configure
 all:
@@ -47,7 +47,7 @@ help:
 	@printf '             sync_packages   | prune_packages       | pkg_diff\n'
 	@printf '             tmux_config     | zsh_config           | install_kicad\n'
 	@printf '             neovim_config   | xfce_config\n'
-	@printf '             help\n'
+	@printf '             i3_workspaces   | help\n'
 	@printf '\n        NOCONFIRM=1 make     (prune without asking)\n'
 
 init:
@@ -75,6 +75,7 @@ install_all_packages: _check_software _check_lists
 		printf '[WRN]: AUR packages that failed to build:%s\n' "$$failed" >&2; \
 		printf '[WRN]: fix or replace them in packages/aur.txt\n' >&2; \
 	fi
+	@pacman -Q $(I3WS_PKG) &> /dev/null || $(MAKE) --no-print-directory i3_workspaces
 	@sudo systemctl enable bluetooth.service docker.service
 	@systemctl --user enable --now pipewire pipewire-pulse wireplumber 2>/dev/null || true
 	@printf "[INF]: Creating symlinks\n"
@@ -134,6 +135,25 @@ _install_yay:
 		cd /tmp/yay && makepkg -si --noconfirm --rmdeps && \
 		yay --version; }
 
+# Patched i3 workspace switcher for the xfce panel. Edit the patches / CSS in
+# packages/xfce4-i3-workspaces-plugin-dodo-git/ and rerun this to rebuild,
+# reinstall, relink the CSS and restart the panel. The PKGBUILD dir is copied
+# to a temp dir so makepkg doesn't write into the repo. No --noconfirm: pacman
+# has to ask before replacing the unpatched AUR package.
+I3WS_PKG := xfce4-i3-workspaces-plugin-dodo-git
+I3WS_DIR := $(PKG_DIR)/$(I3WS_PKG)
+
+i3_workspaces:
+	@tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT; \
+		cp $(I3WS_DIR)/PKGBUILD $(I3WS_DIR)/*.patch "$$tmp"; \
+		cd "$$tmp" && makepkg -si --cleanbuild
+	@$(MAKE) --no-print-directory _i3_workspaces_css
+	@pgrep -x xfce4-panel > /dev/null && xfce4-panel --restart || true
+
+_i3_workspaces_css:
+	@mkdir -p $$HOME/.config/xfce4/panel; \
+		ln -vnsf $(I3WS_DIR)/i3-workspaces.css $$HOME/.config/xfce4/panel/i3-workspaces.css
+
 install_kicad:
 	@yay -S --needed --noconfirm $(KICAD_PKGS)
 
@@ -169,6 +189,7 @@ xfce_config:
 	else \
 		dbus-run-session -- sh $(SCRIPT_PATH)/scripts/xfce_configurer.sh; \
 	fi
+	@$(MAKE) --no-print-directory _i3_workspaces_css
 	@# only xfce caches: a saved session/menu cache would override the new settings
 	@rm -rf $$HOME/.cache/sessions $$HOME/.cache/xfce4
 	@ln -vnsf $(SCRIPT_PATH)/Xresources $$HOME/.Xresources;
