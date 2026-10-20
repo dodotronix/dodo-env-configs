@@ -19,6 +19,7 @@ AUR_PKGS    := $(call read_list,$(PKG_DIR)/aur.txt)
 # Local PKGBUILDs: name = directory in packages/
 LOCAL_PKGS  := $(call read_list,$(PKG_DIR)/local.txt)
 KICAD_PKGS  := $(call read_list,$(PKG_DIR)/kicad.txt)
+VNC_PKGS    := $(call read_list,$(PKG_DIR)/vnc.txt)
 # Core set = what install_all_packages installs
 CORE_PKGS   := $(sort $(BASE_PKGS) $(PACMAN_PKGS) $(AUR_PKGS) $(LOCAL_PKGS))
 # Keep set = everything in ANY packages/*.txt is protected from pruning
@@ -30,7 +31,7 @@ PACMAN_CONFIRM := $(if $(filter 1,$(NOCONFIRM)),--noconfirm,)
 .PHONY: all help init install_all_packages sync_packages prune_packages pkg_diff \
 	configure_all install_fonts tmux_config zsh_config neovim_config \
 	xfce_config update_applications evolution_config install_kicad \
-	configure_kicad alacritty_config docker_prepare_claude \
+	configure_kicad alacritty_config vnc_config docker_prepare_claude \
 	clean_caches i3_workspaces _i3_workspaces_css _check_software _check_lists _install_yay _mark_explicit
 
 # Full setup, run in order: clone repos -> sync packages -> configure
@@ -47,7 +48,8 @@ help:
 	@printf '             sync_packages   | prune_packages       | pkg_diff\n'
 	@printf '             tmux_config     | zsh_config           | install_kicad\n'
 	@printf '             neovim_config   | xfce_config          | docker_prepare_claude\n'
-	@printf '             clean_caches    | i3_workspaces        | help\n'
+	@printf '             clean_caches    | i3_workspaces        | vnc_config\n'
+	@printf '             help\n'
 	@printf '\n        NOCONFIRM=1 make     (prune without asking)\n'
 
 init:
@@ -260,6 +262,26 @@ configure_kicad:
 alacritty_config:
 	@ln -vnsf $(SCRIPT_PATH)/alacritty $$HOME/.config
 
+# VNC server with its own xfce session on display :$(VNC_DISPLAY) (port 590X).
+# The session runs through dbus-run-session, otherwise xfce quits right away
+# when the same user is logged in locally (shared session bus).
+# Connect with: vncviewer <host>:$(VNC_DISPLAY)
+VNC_DISPLAY := 1
+
+vnc_config:
+	@sudo pacman -S --needed --noconfirm $(VNC_PKGS)
+	@# copied, not linked: the greeter can't read through a private $HOME
+	@sudo install -vDm644 $(SCRIPT_PATH)/vnc/xfce-vnc.desktop /usr/share/xsessions/xfce-vnc.desktop
+	@grep -q '^:$(VNC_DISPLAY)=' /etc/tigervnc/vncserver.users || \
+		echo ":$(VNC_DISPLAY)=$$USER" | sudo tee -a /etc/tigervnc/vncserver.users > /dev/null
+	@mkdir -p $$HOME/.config/tigervnc; \
+		ln -vnsf $(SCRIPT_PATH)/vnc/config $$HOME/.config/tigervnc/config
+	@# older tigervnc versions still read ~/.vnc
+	@[ ! -d $$HOME/.vnc ] || ln -vnsf $(SCRIPT_PATH)/vnc/config $$HOME/.vnc/config
+	@[ -s $$HOME/.config/tigervnc/passwd ] || [ -s $$HOME/.vnc/passwd ] || vncpasswd
+	@sudo systemctl enable vncserver@:$(VNC_DISPLAY).service
+	@sudo systemctl restart vncserver@:$(VNC_DISPLAY).service
+
 # ---------------------------------------------------------------------------
 # Claude Code in docker
 # ---------------------------------------------------------------------------
@@ -296,4 +318,4 @@ docker_prepare_claude:
 
 # install_work_specific:
 # 	-> put mattermost-desktop, zoom into packages/work.txt (AUR)
-# 	   and tigervnc remmina libvncserver too, so pruning keeps them
+# 	   and remmina libvncserver too, so pruning keeps them

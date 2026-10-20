@@ -1,0 +1,2 @@
+# Installed only by `make vnc_config`, but protected from pruning
+tigervnc

@@ -80,6 +80,7 @@ network-manager-applet
 thunar
 thunar-volman
 woff2-font-awesome
+papirus-icon-theme
 
 # apps
 firefox

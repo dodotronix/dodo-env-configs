@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Xfce (VNC)
+Comment=Xfce with its own session bus, runs next to a local i3 login
+Exec=dbus-run-session startxfce4
+Type=Application

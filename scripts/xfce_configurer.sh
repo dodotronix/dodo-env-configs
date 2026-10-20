@@ -6,6 +6,9 @@ xfconf-query -c xfce4-session -np /general/SessionName -t string -s Default
 xfconf-query -c xfce4-session -np /sessions/Failsafe/Client0_Command -a -t string -s i3
 xfconf-query -c xfce4-session -np /sessions/Failsafe/Client4_Command -a -t string -s "" 
 
+# ICON THEME
+xfconf-query -c xsettings -np /Net/IconThemeName -t string -s Papirus-Dark
+
 # remove all plugins from the panel
 xfconf-query -c xfce4-panel -p /plugins -r -R
 
