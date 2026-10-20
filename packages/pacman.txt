@@ -25,6 +25,7 @@ nnn
 fzf
 pacman-contrib
 rclone
+fuse3
 
 # containers
 docker
