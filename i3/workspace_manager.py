@@ -10,9 +10,9 @@ from i3ipc import Connection, Event
 # TODO add move workspace right and left option
 
 def open_input_window():
-    cmd_output = subprocess.run(['yad', '--entry', '--no-buttons', 
-                                 '--undecorated' '--center', 
-                                 '--entry-label="Workspace name:"'], 
+    cmd_output = subprocess.run(['yad', '--entry', '--no-buttons',
+                                 '--undecorated', '--center',
+                                 '--entry-label=Workspace name:'],
                                 text=True, capture_output=True)
 
     return cmd_output.stdout.rstrip()
@@ -43,6 +43,8 @@ def open_neomutt(i3):
 def workspace_append(i3):
     k = ['d', 'h', 't',  'n', 's']
     name = open_input_window()
+    if not name:
+        return 0
     max_inx = max([x.num for x in i3.get_workspaces()])
     pos = 5 if max_inx < 5 else (max_inx + 1)
     if pos > 9:
@@ -52,6 +54,8 @@ def workspace_append(i3):
 
 def workspace_rename(i3):
     name = open_input_window()
+    if not name:
+        return 0
     focused = [w.name for w in i3.get_workspaces() if w.focused and w.num > 4]
     if not focused:
         return 0
