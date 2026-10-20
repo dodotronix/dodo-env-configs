@@ -30,7 +30,7 @@ PACMAN_CONFIRM := $(if $(filter 1,$(NOCONFIRM)),--noconfirm,)
 .PHONY: all help init install_all_packages sync_packages prune_packages pkg_diff \
 	configure_all install_fonts tmux_config zsh_config neovim_config \
 	xfce_config update_applications evolution_config install_kicad \
-	configure_kicad alacritty_config \
+	configure_kicad alacritty_config docker_prepare_claude \
 	clean_caches i3_workspaces _i3_workspaces_css _check_software _check_lists _install_yay _mark_explicit
 
 # Full setup, run in order: clone repos -> sync packages -> configure
@@ -46,7 +46,7 @@ help:
 	@printf '        make init            | install_all_packages | configure_all\n'
 	@printf '             sync_packages   | prune_packages       | pkg_diff\n'
 	@printf '             tmux_config     | zsh_config           | install_kicad\n'
-	@printf '             neovim_config   | xfce_config\n'
+	@printf '             neovim_config   | xfce_config          | docker_prepare_claude\n'
 	@printf '             clean_caches    | i3_workspaces        | help\n'
 	@printf '\n        NOCONFIRM=1 make     (prune without asking)\n'
 
@@ -172,7 +172,7 @@ install_kicad:
 
 # Everything every machine needs (kicad etc. are separate targets on purpose)
 configure_all: install_fonts tmux_config zsh_config neovim_config alacritty_config \
-	xfce_config update_applications evolution_config
+	xfce_config update_applications evolution_config docker_prepare_claude
 	@sudo systemctl enable --now ntpd.service
 	@# enable only: starting it here would throw you to the greeter mid-setup
 	@sudo systemctl enable lightdm.service
@@ -259,6 +259,29 @@ configure_kicad:
 
 alacritty_config:
 	@ln -vnsf $(SCRIPT_PATH)/alacritty $$HOME/.config
+
+# ---------------------------------------------------------------------------
+# Claude Code in docker
+# ---------------------------------------------------------------------------
+
+CLAUDE_IMAGE      := claude-code
+# Work dir with one folder per agent (its own claude config) -- kept out of the repo.
+# Must match the default in scripts/claude_agent.
+CLAUDE_AGENTS_DIR := $$HOME/claude-agents
+
+# Build the image from claude/Dockerfile and create the agents work dir
+docker_prepare_claude:
+	@command -v docker &> /dev/null || { \
+		printf 'ERR: docker is not installed (make install_all_packages)\n' >&2; false; }
+	@systemctl is-active --quiet docker.service || sudo systemctl enable --now docker.service
+	@[ "$$(id -u)" = 1000 ] || \
+		printf '[WRN]: your uid is %s, the container user is 1000 -> mounted files get the wrong owner\n' "$$(id -u)" >&2
+	@mkdir -p $(CLAUDE_AGENTS_DIR)
+	@# not in the docker group (fresh install) -> build through sudo
+	@d=docker; docker info &> /dev/null || d="sudo docker"; \
+		$$d build --pull -t $(CLAUDE_IMAGE) $(SCRIPT_PATH)/claude
+	@printf '[INF]: Image "%s" ready. Start an agent with:\n' $(CLAUDE_IMAGE)
+	@printf '  claude_agent <name> [path[:dest[:ro]] ...]   (agents live in %s)\n' "$(CLAUDE_AGENTS_DIR)"
 
 # install_flatcam:
 # 	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
