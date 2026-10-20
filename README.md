@@ -51,6 +51,18 @@ sudo efibootmgr --bootorder 0003,0001
 ## CLAUDE (docker)
 `make docker_prepare_claude` installs docker and builds the `claude-code-ubuntu-24.04`
 image from `claude/Dockerfile`.
+```sh
+docker run -it --network host \
+    -v ~/work/demo/claude:/home/ubuntu/claude \
+    -v ~/work/demo/myproject:/home/ubuntu/myproject \
+    -v ~/notes:/home/ubuntu/notes:ro \
+    --device /dev/ttyUSB0 --group-add $(stat -c %g /dev/ttyUSB0) \
+    claude-code-ubuntu-24.04
+```
+* `-v host:container[:ro]` mounts a folder, `:ro` = read-only
+* `--device` passes a serial port, `--group-add` gives the container user its
+  group (uucp) so it can open it without chmod
+* `/dev/serial/by-id/...` names stay the same when replugged, `ttyUSBx` may not
 
 ## FIREFOX
 Since there is no browser nativly with nvim shortcuts supporting all the privacy
