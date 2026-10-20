@@ -48,16 +48,9 @@ sudo efibootmgr --bootnum 0003 --delete-bootnum   # 0003 = number from Boot0003*
 sudo efibootmgr --bootorder 0003,0001
 ```
 
-## CLAUDE AGENTS (docker)
-`make docker_prepare_claude` builds the `claude-code` image from `claude/Dockerfile`.
-Every agent gets its own folder in `~/claude-agents/<name>/` with its own `claude/`
-config dir (login, history, memory), so agents don't share anything.
-```sh
-claude_agent web ~/projects/site ~/notes:/data:ro   # create/start agent "web" with these mounts
-claude_agent web                                    # start again with the same (saved) mounts
-claude_agent                                        # list agents
-```
-A plain path is mounted to `/home/ubuntu/projects/<basename>`, `path:dest[:ro]` goes to `-v` as is.
+## CLAUDE (docker)
+`make docker_prepare_claude` installs docker and builds the `claude-code-ubuntu-24.04`
+image from `claude/Dockerfile`.
 
 ## FIREFOX
 Since there is no browser nativly with nvim shortcuts supporting all the privacy

@@ -286,24 +286,15 @@ vnc_config:
 # Claude Code in docker
 # ---------------------------------------------------------------------------
 
-CLAUDE_IMAGE      := claude-code
-# Work dir with one folder per agent (its own claude config) -- kept out of the repo.
-# Must match the default in scripts/claude_agent.
-CLAUDE_AGENTS_DIR := $$HOME/claude-agents
+CLAUDE_IMAGE := claude-code-ubuntu-24.04
 
-# Build the image from claude/Dockerfile and create the agents work dir
+# Install docker and build the image from claude/Dockerfile
 docker_prepare_claude:
-	@command -v docker &> /dev/null || { \
-		printf 'ERR: docker is not installed (make install_all_packages)\n' >&2; false; }
+	@sudo pacman -S --needed --noconfirm docker docker-buildx
 	@systemctl is-active --quiet docker.service || sudo systemctl enable --now docker.service
-	@[ "$$(id -u)" = 1000 ] || \
-		printf '[WRN]: your uid is %s, the container user is 1000 -> mounted files get the wrong owner\n' "$$(id -u)" >&2
-	@mkdir -p $(CLAUDE_AGENTS_DIR)
 	@# not in the docker group (fresh install) -> build through sudo
 	@d=docker; docker info &> /dev/null || d="sudo docker"; \
 		$$d build --pull -t $(CLAUDE_IMAGE) $(SCRIPT_PATH)/claude
-	@printf '[INF]: Image "%s" ready. Start an agent with:\n' $(CLAUDE_IMAGE)
-	@printf '  claude_agent <name> [path[:dest[:ro]] ...]   (agents live in %s)\n' "$(CLAUDE_AGENTS_DIR)"
 
 # install_flatcam:
 # 	@yay --noconfirm -S flatcam-git --nocleanmenu --nodiffmenu; \
