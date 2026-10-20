@@ -14,8 +14,6 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 1 \
     -t int -s 2 \
     -t int -s 3 \
-    -t int -s 4 \
-    -t int -s 5 \
     -t int -s 6 \
     -t int -s 8 \
     -t int -s 9 \
@@ -53,19 +51,6 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-3 \
     -t string -s 'whiskermenu'
 
 # SEPARATOR
-xfconf-query -c xfce4-panel -np /plugins/plugin-4 \
-    -t string -s 'separator'
-xfconf-query -c xfce4-panel -np /plugins/plugin-4/style \
-    -t uint -s 0 
-
-# Button to push records to Git
-xfconf-query -c xfce4-panel -np /plugins/plugin-5 \
-    -t string -s 'launcher'
-
-xfconf-query -c xfce4-panel -np /plugins/plugin-5/items -a \
-    -t string -s $HOME/projects/dodo-env-configs/desktop/RecPush.desktop
-
-# SEPARATOR
 xfconf-query -c xfce4-panel -np /plugins/plugin-6 \
     -t string -s 'separator'
 xfconf-query -c xfce4-panel -np /plugins/plugin-6/expand \
@@ -94,8 +79,7 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-11 \
 xfconf-query -c xfce4-panel -np /plugins/plugin-11/icon-size \
     -t int -s 0
 
-# TODO check if xfce is running, otherwise omit this command
-xfce4-panel --restart 
+pgrep -x xfce4-panel > /dev/null && xfce4-panel --restart || true
 
 # I3-WORKSPACES
 # this is pretty annoying because the i3-workspace widget does
@@ -106,8 +90,6 @@ xfconf-query -c xfce4-panel -np "/panels/panel-0/plugin-ids" -a \
     -t int -s 1 \
     -t int -s 2 \
     -t int -s 3 \
-    -t int -s 4 \
-    -t int -s 5 \
     -t int -s 6 \
     -t int -s 7 \
     -t int -s 8 \
@@ -184,5 +166,4 @@ xfconf-query -c xfce4-panel -np /plugins/plugin-3/stay-on-focus-out \
 xfconf-query -c xfce4-panel -np /plugins/plugin-3/default-category \
     -t int -s 1
 
-# TODO check if xfce is running, otherwise omit this command
-xfce4-panel --restart 
+pgrep -x xfce4-panel > /dev/null && xfce4-panel --restart || true
